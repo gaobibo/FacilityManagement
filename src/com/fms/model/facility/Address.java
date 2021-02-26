@@ -1,4 +1,4 @@
-package com.fms.model.common;
+package com.fms.model.facility;
 
 public class Address {
 

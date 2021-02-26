@@ -1,15 +1,20 @@
-package com.fms.model.maintain;
+package com.fms.model.handler;
 
 import java.util.Date;
 
 public class MaintainRecord {
+	
+	public static final String STATUS_SUBMITTED = "SUBMITTED";
+	public static final String STATUS_SCHEDULED = "SCHEDULED";
+	public static final String STATUS_COMPLETED = "COMPLETED";
+	
 	private String recordId;
+	private String status = STATUS_SUBMITTED;
 	private String facilityId;
 	private String employeeId;
 	private Date reportedDate;
 	private Date scheduleDate;
 	private Date completeDate;
-	private MaintainStatus status;
 	
 	public String getRecordId() {
 		return recordId;
@@ -59,11 +64,11 @@ public class MaintainRecord {
 		this.completeDate = completeDate;
 	}
 
-	public MaintainStatus getStatus() {
+	public String getStatus() {
 		return status;
 	}
 	
-	public void setStatus(MaintainStatus status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 }

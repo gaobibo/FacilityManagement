@@ -3,7 +3,7 @@ package com.fms.model.facility;
 import java.util.Date;
 import java.util.List;
 
-import com.fms.model.use.UseRecord;
+import com.fms.model.handler.UseRecord;
 
 public interface FacilityUseInterface {
 	public List<UseRecord> listActualUsage(String facilityId);

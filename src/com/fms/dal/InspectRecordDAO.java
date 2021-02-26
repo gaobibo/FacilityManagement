@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.fms.model.inspect.InspectRecord;
+import com.fms.model.handler.InspectRecord;
 
 public class InspectRecordDAO {
 

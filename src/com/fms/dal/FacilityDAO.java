@@ -46,17 +46,22 @@ public class FacilityDAO implements FacilityPersistencyInterface {
 		facilities.remove(facilityId);
     }
 	
-	public void addFacility(Facility facility) {
-		facility.getFacilityGeneral().setFacilityId(Integer.toString(index++));
-		facilities.put(facility.getFacilityGeneral().getFacilityId(), facility);
+	public Facility addFacility() {
+		
+		String facilityId = Integer.toString(index++);
+		Facility facility = new Facility(facilityId);
+		
+		facilities.put(facilityId, facility);
+		
+		return facility;
     }
 		
 	public boolean changeFacility(Facility facility) {
 		
 		boolean result = false;
 		
-		if (facilities.containsKey(facility.getFacilityGeneral().getFacilityId()) == true) {
-			facilities.put(facility.getFacilityGeneral().getFacilityId(), facility);
+		if (facilities.containsKey(facility.getFacilityId()) == true) {
+			facilities.put(facility.getFacilityId(), facility);
 			result = true;
 		}
 		

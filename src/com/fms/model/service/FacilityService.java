@@ -5,7 +5,9 @@ import java.util.List;
 
 import com.fms.dal.FacilityDAO;
 import com.fms.model.facility.Facility;
-import com.fms.model.facility.FacilityGeneral;
+import com.fms.model.handler.FacilityInspectHandler;
+import com.fms.model.handler.FacilityMaintainHandler;
+import com.fms.model.handler.FacilityUseHandler;
 
 public class FacilityService {
 
@@ -26,13 +28,17 @@ public class FacilityService {
 	}
 	
 	// Insert a facility
-	public Facility addNewFacility(FacilityGeneral facilityGeneral) {
+	public Facility addNewFacility() {
 		
-		Facility facility = new Facility(facilityDAO, new FacilityUseHandler());
-		facility.setFacilityGeneral(facilityGeneral);
+		Facility facility = null;
 		
 		try {
-			facilityDAO.addFacility(facility);
+			facility = facilityDAO.addFacility();
+			
+			facility.setHandler(facilityDAO,
+								new FacilityUseHandler(),
+								new FacilityInspectHandler(),
+								new FacilityMaintainHandler());
 	    } catch (Exception se) {
 	      System.err.println(se.getMessage());
 	    }

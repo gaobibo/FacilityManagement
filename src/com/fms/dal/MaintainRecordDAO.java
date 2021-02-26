@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.fms.model.maintain.MaintainRecord;
+import com.fms.model.handler.MaintainRecord;
 
 public class MaintainRecordDAO {
 

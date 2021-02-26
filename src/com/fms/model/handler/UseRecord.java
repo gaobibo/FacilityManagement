@@ -1,4 +1,4 @@
-package com.fms.model.use;
+package com.fms.model.handler;
 
 import java.util.Date;
 

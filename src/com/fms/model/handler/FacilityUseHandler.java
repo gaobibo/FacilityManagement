@@ -1,4 +1,4 @@
-package com.fms.model.service;
+package com.fms.model.handler;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.fms.dal.UseRecordDAO;
 import com.fms.model.facility.FacilityUseInterface;
-import com.fms.model.use.UseRecord;
 
 public class FacilityUseHandler implements FacilityUseInterface {
 	

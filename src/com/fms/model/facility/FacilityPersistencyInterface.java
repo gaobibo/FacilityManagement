@@ -6,6 +6,6 @@ public interface FacilityPersistencyInterface {
 	public List<Facility> listFacilites();
 	public Facility getFacility(String facilityId);
 	public void removeFacility(String facilityId);
-	public void addFacility(Facility facility);
+	public Facility addFacility();
 	public boolean changeFacility(Facility facility);
 }

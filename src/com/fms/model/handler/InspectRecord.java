@@ -1,4 +1,4 @@
-package com.fms.model.inspect;
+package com.fms.model.handler;
 
 import java.util.Date;
 
