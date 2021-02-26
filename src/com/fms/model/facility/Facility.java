@@ -15,25 +15,25 @@ public class Facility {
 	private String facilityId;
 	private String facilityStatus = STATUS_READY;
 	
-	private FacilityDetail facilityDetail = new FacilityDetail();
+	private FacilityDetail facilityDetail;
 	
-	private FacilityPersistencyInterface facilityPersistencyIfc;
 	private FacilityUseInterface 		 facilityUseIfc;
 	private FacilityInspectInterface     facilityInspectIfc;
 	private FacilityMaintainInterface    facilityMaintainIfc;
+	private FacilityPersistencyInterface facilityPersistencyIfc;
 
 	public Facility(String facilityId) {
 		this.facilityId = facilityId;
 	}
 	
-	public void setHandler(FacilityPersistencyInterface facilityPersistencyIfc, 
-					FacilityUseInterface facilityUseIfc,
-					FacilityInspectInterface facilityInspectIfc,
-					FacilityMaintainInterface facilityMaintainIfc) {
-		this.facilityPersistencyIfc = facilityPersistencyIfc;
+	public void setHandler(FacilityUseInterface facilityUseIfc,
+						   FacilityInspectInterface facilityInspectIfc,
+						   FacilityMaintainInterface facilityMaintainIfc,
+						   FacilityPersistencyInterface facilityPersistencyIfc) {
 		this.facilityUseIfc = facilityUseIfc;
 		this.facilityInspectIfc = facilityInspectIfc;
 		this.facilityMaintainIfc = facilityMaintainIfc;
+		this.facilityPersistencyIfc = facilityPersistencyIfc;
 	}
 
 	// Get the facility ID
@@ -41,18 +41,27 @@ public class Facility {
 		return facilityId;
 	}
 	
-	// Get the available capacity of facility
-	public int getAvailableCapacity() {
-	    return facilityDetail.getFacilityCapacity();
+	// Get the facility Status
+	public String getFacilityStatus() {
+		return facilityStatus;
+	}
+	
+	// Request the available capacity of facility
+	public int requestAvailableCapacity() {
+		if (facilityDetail != null) {
+			return facilityDetail.getFacilityCapacity();
+		} else {
+			return 0;
+		}
 	}
 	
 	// Get the detail information of facility
-	public FacilityDetail getFacilityDetail() {
+	public FacilityDetail getFacilityInformation() {
 		return facilityDetail;
 	}
 	
-	// Set the detail information of facility
-	public void setFacilityDetail(FacilityDetail facilityDetail) {
+	// Add or set the detail information of facility
+	public void addFacilityDetail(FacilityDetail facilityDetail) {
 		this.facilityDetail = facilityDetail;
 		facilityPersistencyIfc.changeFacility(this);
 	}
@@ -80,14 +89,14 @@ public class Facility {
 		return facilityUseIfc.isInUseDuringInterval(facilityId, startDate, endDate);
 	}
 	
-	// Assign the facility to an employee
-	public boolean assignFacilityToUse(String employeeId) {
+	// Assign the facility to use
+	public boolean assignFacilityToUse() {
 		
 		boolean result = false;
 		
 		if (facilityStatus == STATUS_READY) {
 			
-			if (facilityUseIfc.assignFacilityToUse(facilityId, employeeId) == true) {
+			if (facilityUseIfc.assignFacilityToUse(facilityId) == true) {
 				
 				facilityStatus = STATUS_IN_USE;
 				
@@ -99,13 +108,13 @@ public class Facility {
 	}
 	
 	// Vacate the facility
-	public boolean vacateFacilityFromUse() {
+	public boolean vacateFacility() {
 		
 		boolean result = false;
 		
 		if (facilityStatus == STATUS_IN_USE) {
 			
-			if (facilityUseIfc.vacateFacilityFromUse(facilityId) == true) {
+			if (facilityUseIfc.vacateFacility(facilityId) == true) {
 				
 				facilityStatus = STATUS_READY;
 				

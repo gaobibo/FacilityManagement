@@ -30,11 +30,11 @@ public class FacilityUseHandler implements FacilityUseInterface {
 		
 		double usageRate = 0;
 		
-		long difference = startDate.getTime() - endDate.getTime();
+		long difference = endDate.getTime() - startDate.getTime();
 		
 		if (difference > 0) {
 		    	
-			long   usageTime = 0;
+			long usageTime = 0;
 			
 			try {
 				List<UseRecord> recordList = recordDAO.listRecordsByFacilityId(facilityId);
@@ -42,14 +42,8 @@ public class FacilityUseHandler implements FacilityUseInterface {
 				if (recordList != null) {
 					
 					for (UseRecord record : recordList) {
-						
-						if (record.getAssignDate().after(startDate) && record.getVacateDate().before(endDate)) {
-							usageTime += Math.max((record.getVacateDate().getTime() - record.getAssignDate().getTime()), 0);	
-						} else if (record.getAssignDate().after(startDate) && record.getAssignDate().before(endDate)) {
-							usageTime += Math.max((endDate.getTime() - record.getAssignDate().getTime()), 0);
-						} else if (record.getVacateDate().after(startDate) && record.getVacateDate().before(endDate)) {
-							usageTime += Math.max((record.getVacateDate().getTime() - startDate.getTime()), 0);
-						}
+						usageTime += Math.max((Math.min(record.getVacateDate().getTime(), endDate.getTime()) - 
+								Math.max(record.getAssignDate().getTime(), startDate.getTime())), 0);
 					}
 				}
 		    } catch (Exception se) {
@@ -58,7 +52,7 @@ public class FacilityUseHandler implements FacilityUseInterface {
 			
 			usageRate = (double)usageTime / (double)difference;
 		}
-	    
+
 		return usageRate;
 	}
 	
@@ -74,10 +68,7 @@ public class FacilityUseHandler implements FacilityUseInterface {
 				
 				for (UseRecord record : recordList) {
 					
-					if (record.getAssignDate().after(startDate) && record.getAssignDate().before(endDate)) {
-						isInUse = true;
-						break;
-					} else if (record.getVacateDate().after(startDate) && record.getVacateDate().before(endDate)) {
+					if ((record.getAssignDate().compareTo(endDate) <= 0) && (record.getVacateDate().compareTo(startDate) >= 0)) {
 						isInUse = true;
 						break;
 					}
@@ -90,14 +81,13 @@ public class FacilityUseHandler implements FacilityUseInterface {
 	}
 	
 	// Assign a facility to an employee
-	public boolean assignFacilityToUse(String facilityId, String employeeId) {
+	public boolean assignFacilityToUse(String facilityId) {
 		
 		boolean result = false;
-				
+		
 		try {					
 			UseRecord record = new UseRecord();
 			record.setFacilityId(facilityId);
-			record.setEmployeeId(employeeId);
 			record.setAssignDate(new Date());
 			recordDAO.addRecord(record);
 			result = true;
@@ -109,7 +99,7 @@ public class FacilityUseHandler implements FacilityUseInterface {
 	}
 	
 	// Vacate a facility
-	public boolean vacateFacilityFromUse(String facilityId) {
+	public boolean vacateFacility(String facilityId) {
 		
 		boolean result = false;
 		

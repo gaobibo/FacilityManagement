@@ -5,7 +5,6 @@ import java.util.Date;
 public class UseRecord {
 	private String recordId;
 	private String facilityId;
-	private String employeeId;
 	private Date assignDate;
 	private Date vacateDate;
 	
@@ -23,14 +22,6 @@ public class UseRecord {
 	
 	public void setFacilityId(String facilityId) {
 		this.facilityId = facilityId;
-	}
-	
-	public String getEmployeeId() {
-		return employeeId;
-	}
-	
-	public void setEmployeeId(String employeeId) {
-		this.employeeId = employeeId;
 	}
 	
 	public Date getAssignDate() {

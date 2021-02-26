@@ -27,7 +27,7 @@ public class FacilityService {
 		return facilityList;
 	}
 	
-	// Insert a facility
+	// Add a facility
 	public Facility addNewFacility() {
 		
 		Facility facility = null;
@@ -35,10 +35,10 @@ public class FacilityService {
 		try {
 			facility = facilityDAO.addFacility();
 			
-			facility.setHandler(facilityDAO,
-								new FacilityUseHandler(),
+			facility.setHandler(new FacilityUseHandler(),
 								new FacilityInspectHandler(),
-								new FacilityMaintainHandler());
+								new FacilityMaintainHandler(),
+								FacilityDAO.getInstance());
 	    } catch (Exception se) {
 	      System.err.println(se.getMessage());
 	    }
