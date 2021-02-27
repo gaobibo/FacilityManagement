@@ -1,8 +1,8 @@
-package com.fms.model.handler;
+package com.fms.model.facility;
 
 import java.util.Date;
 
-public class InspectRecord {
+public class FacilityInspectRecord {
 	private String recordId;
 	private String facilityId;
 	private String employeeId;

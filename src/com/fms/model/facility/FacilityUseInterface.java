@@ -3,10 +3,8 @@ package com.fms.model.facility;
 import java.util.Date;
 import java.util.List;
 
-import com.fms.model.handler.UseRecord;
-
 public interface FacilityUseInterface {
-	public List<UseRecord> listActualUsage(String facilityId);
+	public List<FacilityUseRecord> listActualUsage(String facilityId);
 	public double calcUsageRate(String facilityId, Date startDate, Date endDate);
 	public boolean isInUseDuringInterval(String facilityId, Date startDate, Date endDate);
 	public boolean assignFacilityToUse(String facilityId);

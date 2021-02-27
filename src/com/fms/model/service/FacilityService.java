@@ -3,7 +3,9 @@ package com.fms.model.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fms.dal.FacilityDAO;
+import com.fms.dal.FacilityInspectTableRAM;
+import com.fms.dal.FacilityTableRAM;
+import com.fms.dal.FacilityUseTableRAM;
 import com.fms.model.facility.Facility;
 import com.fms.model.handler.FacilityInspectHandler;
 import com.fms.model.handler.FacilityMaintainHandler;
@@ -11,7 +13,7 @@ import com.fms.model.handler.FacilityUseHandler;
 
 public class FacilityService {
 
-	private FacilityDAO facilityDAO = FacilityDAO.getInstance();
+	private FacilityTableRAM facilityTableRAM = FacilityTableRAM.getInstance();
 
 	// List all the facilities
 	public List<Facility> listFacilities() {
@@ -19,7 +21,7 @@ public class FacilityService {
 		List<Facility> facilityList = new ArrayList<Facility>();
 		
 		try {
-			facilityList = facilityDAO.listFacilites();
+			facilityList = facilityTableRAM.listFacilites();
 	    } catch (Exception se) {
 	      System.err.println(se.getMessage());
 	    }
@@ -33,12 +35,12 @@ public class FacilityService {
 		Facility facility = null;
 		
 		try {
-			facility = facilityDAO.addFacility();
+			facility = facilityTableRAM.addFacility();
 			
-			facility.setHandler(new FacilityUseHandler(),
-								new FacilityInspectHandler(),
+			facility.setHandler(new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
+								new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()),
 								new FacilityMaintainHandler(),
-								FacilityDAO.getInstance());
+								FacilityTableRAM.getInstance());
 	    } catch (Exception se) {
 	      System.err.println(se.getMessage());
 	    }

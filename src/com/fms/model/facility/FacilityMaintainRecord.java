@@ -1,8 +1,8 @@
-package com.fms.model.handler;
+package com.fms.model.facility;
 
 import java.util.Date;
 
-public class MaintainRecord {
+public class FacilityMaintainRecord {
 	
 	public static final String STATUS_SUBMITTED = "SUBMITTED";
 	public static final String STATUS_SCHEDULED = "SCHEDULED";

@@ -5,36 +5,37 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.fms.model.handler.UseRecord;
+import com.fms.model.facility.FacilityUseRecord;
+import com.fms.model.handler.FacilityUsePersistency;
 
-public class UseRecordDAO {
+public class FacilityUseTableRAM implements FacilityUsePersistency {
 
     // static variable
-    private static UseRecordDAO instance = null; 
+    private static FacilityUseTableRAM instance = null; 
   
     // private constructor
-    private UseRecordDAO() 
+    private FacilityUseTableRAM() 
     { 
     } 
   
-    // static method to create instance of UseRecordDAO class 
-    public static UseRecordDAO getInstance() 
+    // static method to create instance of FacilityUseTableRAM class 
+    public static FacilityUseTableRAM getInstance() 
     { 
         if (instance == null) {
-        	instance = new UseRecordDAO();
+        	instance = new FacilityUseTableRAM();
         }
   
         return instance; 
     }
 	
-	private Map<String, UseRecord> records = new HashMap<String, UseRecord>();
+	private Map<String, FacilityUseRecord> records = new HashMap<String, FacilityUseRecord>();
 	private int index = 0;
 
-	public List<UseRecord> listRecordsByFacilityId(String facilityId) {
+	public List<FacilityUseRecord> listRecordsByFacilityId(String facilityId) {
 		
-		List<UseRecord> recordList = new ArrayList<UseRecord>();
+		List<FacilityUseRecord> recordList = new ArrayList<FacilityUseRecord>();
 		
-		for (Map.Entry<String, UseRecord> entry : records.entrySet()) {
+		for (Map.Entry<String, FacilityUseRecord> entry : records.entrySet()) {
 			if (entry.getValue().getFacilityId().equals(facilityId)) {
 				recordList.add(entry.getValue());
 			}
@@ -43,12 +44,12 @@ public class UseRecordDAO {
 		return recordList;
 	}
 	
-	public UseRecord getLatestRecord(String facilityId) {
+	public FacilityUseRecord getLatestRecord(String facilityId) {
 		
-		UseRecord latestRecord = null;
+		FacilityUseRecord latestRecord = null;
 		
-		for (Map.Entry<String, UseRecord> entry : records.entrySet()) {
-			UseRecord record = entry.getValue();
+		for (Map.Entry<String, FacilityUseRecord> entry : records.entrySet()) {
+			FacilityUseRecord record = entry.getValue();
 			if (record.getFacilityId().equals(facilityId)) {
 				if (latestRecord != null) {
 					if (latestRecord.getAssignDate().before(record.getAssignDate()) == true) {
@@ -63,11 +64,11 @@ public class UseRecordDAO {
 	    return latestRecord;
 	}
 	
-	public UseRecord getRecord(String recordId) {
+	public FacilityUseRecord getRecord(String recordId) {
 	    return records.get(recordId);
 	}
 	
-	public void addRecord(UseRecord record) {
+	public void addRecord(FacilityUseRecord record) {
 		record.setRecordId(Integer.toString(index++));
 		records.put(record.getRecordId(), record);
     }
@@ -76,7 +77,7 @@ public class UseRecordDAO {
 		records.remove(recordId);
     }
 	
-	public boolean changeRecord(UseRecord record) {
+	public boolean changeRecord(FacilityUseRecord record) {
 		
 		boolean result = false;
 		

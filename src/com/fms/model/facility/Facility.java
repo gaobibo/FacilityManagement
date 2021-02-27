@@ -3,8 +3,6 @@ package com.fms.model.facility;
 import java.util.Date;
 import java.util.List;
 
-import com.fms.model.handler.UseRecord;
-
 public class Facility {
 
 	public static final String STATUS_READY       = "READY";
@@ -20,7 +18,7 @@ public class Facility {
 	private FacilityUseInterface 		 facilityUseIfc;
 	private FacilityInspectInterface     facilityInspectIfc;
 	private FacilityMaintainInterface    facilityMaintainIfc;
-	private FacilityPersistencyInterface facilityPersistencyIfc;
+	private FacilityPersistency facilityPersistency;
 
 	public Facility(String facilityId) {
 		this.facilityId = facilityId;
@@ -29,11 +27,11 @@ public class Facility {
 	public void setHandler(FacilityUseInterface facilityUseIfc,
 						   FacilityInspectInterface facilityInspectIfc,
 						   FacilityMaintainInterface facilityMaintainIfc,
-						   FacilityPersistencyInterface facilityPersistencyIfc) {
+						   FacilityPersistency facilityPersistency) {
 		this.facilityUseIfc = facilityUseIfc;
 		this.facilityInspectIfc = facilityInspectIfc;
 		this.facilityMaintainIfc = facilityMaintainIfc;
-		this.facilityPersistencyIfc = facilityPersistencyIfc;
+		this.facilityPersistency = facilityPersistency;
 	}
 
 	// Get the facility ID
@@ -63,19 +61,19 @@ public class Facility {
 	// Add or set the detail information of facility
 	public void addFacilityDetail(FacilityDetail facilityDetail) {
 		this.facilityDetail = facilityDetail;
-		facilityPersistencyIfc.changeFacility(this);
+		facilityPersistency.changeFacility(this);
 	}
 
 	// Remove the facility
 	public void removeFacility() {
 		if (facilityStatus != STATUS_REMOVED) {
 			facilityStatus = STATUS_REMOVED;
-			facilityPersistencyIfc.removeFacility(facilityId);			
+			facilityPersistency.removeFacility(facilityId);			
 		}
 	}
 	
 	// List the actual usage of facility
-	public List<UseRecord> listActualUsage() {
+	public List<FacilityUseRecord> listActualUsage() {
 		return facilityUseIfc.listActualUsage(facilityId);
 	}
 	
@@ -123,5 +121,15 @@ public class Facility {
 		}
 		
 		return result;
+	}
+	
+	// List all the inspection records of facility
+	public List<FacilityInspectRecord> listInspections(String facilityId) {
+		return facilityInspectIfc.listInspections(facilityId);
+	}
+	
+	// Inspect the facility
+	public boolean inspectFacility(String facilityId, String employeeId) {
+		return facilityInspectIfc.inspectFacility(facilityId, employeeId);
 	}
 }

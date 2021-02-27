@@ -3,14 +3,17 @@ package com.fms.test;
 import java.util.Date;
 import java.util.List;
 
-import com.fms.dal.FacilityDAO;
+import com.fms.dal.FacilityInspectTableRAM;
+import com.fms.dal.FacilityTableRAM;
+import com.fms.dal.FacilityUseTableRAM;
 import com.fms.model.facility.Address;
 import com.fms.model.facility.Facility;
 import com.fms.model.facility.FacilityDetail;
+import com.fms.model.facility.FacilityInspectRecord;
+import com.fms.model.facility.FacilityUseRecord;
 import com.fms.model.handler.FacilityInspectHandler;
 import com.fms.model.handler.FacilityMaintainHandler;
 import com.fms.model.handler.FacilityUseHandler;
-import com.fms.model.handler.UseRecord;
 import com.fms.model.service.FacilityService;
 
 public class FacilityUnitTest {
@@ -22,6 +25,10 @@ public class FacilityUnitTest {
 		unitTestFacilityService();
 
 		unitTestFacilityUseHandler();
+		
+		unitTestFacilityInspectHandler();
+		
+		unitTestFacilityMaintainHandler();
 	}
 	
 	private static void unitTestFacility() {
@@ -52,10 +59,10 @@ public class FacilityUnitTest {
         
         Facility facility = new Facility(facilityId);
         
-        facility.setHandler(new FacilityUseHandler(),
-							new FacilityInspectHandler(),
+        facility.setHandler(new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
+							new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()),
 							new FacilityMaintainHandler(),
-							FacilityDAO.getInstance());
+							FacilityTableRAM.getInstance());
         
         facility.addFacilityDetail(facilityDetail);
         
@@ -104,7 +111,7 @@ public class FacilityUnitTest {
 		String facilityId1 = "1";
 		String facilityId2 = "2";
 		
-		FacilityUseHandler facilityUseHandler = new FacilityUseHandler();
+		FacilityUseHandler facilityUseHandler = new FacilityUseHandler(FacilityUseTableRAM.getInstance());
 		
 		Date startDate1 = new Date(); 
 		try { Thread.sleep(1000); } catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
@@ -126,17 +133,17 @@ public class FacilityUnitTest {
 		try { Thread.sleep(1000); } catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
 		Date endDate3 = new Date();
 		
-		List<UseRecord> recordList1 = facilityUseHandler.listActualUsage(facilityId1);
-		List<UseRecord> recordList2 = facilityUseHandler.listActualUsage(facilityId2);
+		List<FacilityUseRecord> recordList1 = facilityUseHandler.listActualUsage(facilityId1);
+		List<FacilityUseRecord> recordList2 = facilityUseHandler.listActualUsage(facilityId2);
 		
-		for (UseRecord record : recordList1) {
+		for (FacilityUseRecord record : recordList1) {
 			System.out.println("\t" + record.getRecordId() + " -- " + 
 							   		  record.getFacilityId() + " -- " + 
 							   		  record.getAssignDate() + " -- " + 
 							   		  record.getVacateDate());
 		}
 		
-		for (UseRecord record : recordList2) {
+		for (FacilityUseRecord record : recordList2) {
 			System.out.println("\t" + record.getRecordId() + " -- " + 
 			   		  				  record.getFacilityId() + " -- " + 
 			   		  				  record.getAssignDate() + " -- " + 
@@ -161,5 +168,50 @@ public class FacilityUnitTest {
 		result &= (isInUse3 == false);
 		
 		System.out.println("FacilityUseHandler UT: " + (result ? "PASS" : "FAIL"));
+	}
+	
+	private static void unitTestFacilityInspectHandler() {
+		
+		boolean result = true;
+		
+		String facilityId1 = "1";
+		String facilityId2 = "2";
+		String employeeId1 = "Alice";
+		String employeeId2 = "Bob";
+		
+		FacilityInspectHandler facilityInspectHandler = new FacilityInspectHandler(FacilityInspectTableRAM.getInstance());
+		
+		facilityInspectHandler.inspectFacility(facilityId1, employeeId1);
+		facilityInspectHandler.inspectFacility(facilityId1, employeeId2);
+		facilityInspectHandler.inspectFacility(facilityId2, employeeId2);
+		
+		List<FacilityInspectRecord> recordList1 = facilityInspectHandler.listInspections(facilityId1);
+		List<FacilityInspectRecord> recordList2 = facilityInspectHandler.listInspections(facilityId2);
+		
+		for (FacilityInspectRecord record : recordList1) {
+			System.out.println("\t" + record.getRecordId() + " -- " + 
+							   		  record.getFacilityId() + " -- " + 
+							   		  record.getEmployeeId() + " -- " + 
+							   		  record.getInspectDate());
+		}
+		
+		for (FacilityInspectRecord record : recordList2) {
+			System.out.println("\t" + record.getRecordId() + " -- " + 
+			   		  				  record.getFacilityId() + " -- " + 
+			   		  				  record.getEmployeeId() + " -- " + 
+			   		  				  record.getInspectDate());
+		}
+		
+		result &= (recordList1.size() == 2);
+		result &= (recordList2.size() == 1);
+		
+		System.out.println("FacilityInspectHandler UT: " + (result ? "PASS" : "FAIL"));
+	}
+	
+	private static void unitTestFacilityMaintainHandler() {
+		
+		boolean result = true;
+		
+		System.out.println("FacilityMaintainHandler UT: " + (result ? "PASS" : "FAIL"));
 	}
 }

@@ -1,5 +1,8 @@
 package com.fms.model.facility;
 
-public interface FacilityInspectInterface {
+import java.util.List;
 
+public interface FacilityInspectInterface {
+	public List<FacilityInspectRecord> listInspections(String facilityId);
+	public boolean inspectFacility(String facilityId, String employeeId);
 }

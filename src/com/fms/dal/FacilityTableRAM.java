@@ -6,23 +6,23 @@ import java.util.Map;
 import java.util.HashMap;
 
 import com.fms.model.facility.Facility;
-import com.fms.model.facility.FacilityPersistencyInterface;
+import com.fms.model.facility.FacilityPersistency;
 
-public class FacilityDAO implements FacilityPersistencyInterface {
+public class FacilityTableRAM implements FacilityPersistency {
 
     // static variable
-    private static FacilityDAO instance = null; 
+    private static FacilityTableRAM instance = null; 
   
     // private constructor
-    private FacilityDAO() 
+    private FacilityTableRAM() 
     { 
     } 
   
-    // static method to create instance of FacilityDAO class 
-    public static FacilityDAO getInstance() 
+    // static method to create instance of FacilityTableRAM class 
+    public static FacilityTableRAM getInstance() 
     { 
         if (instance == null) {
-        	instance = new FacilityDAO();
+        	instance = new FacilityTableRAM();
         }
   
         return instance; 
