@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.fms.model.facility.FacilityPersistencyInterface;
 import com.fms.model.facility.FacilityUseRecord;
-import com.fms.model.handler.FacilityUsePersistency;
 
-public class FacilityUseTableRAM implements FacilityUsePersistency {
+public class FacilityUseTableRAM implements FacilityPersistencyInterface<FacilityUseRecord> {
 
     // static variable
     private static FacilityUseTableRAM instance = null; 
@@ -31,6 +31,13 @@ public class FacilityUseTableRAM implements FacilityUsePersistency {
 	private Map<String, FacilityUseRecord> records = new HashMap<String, FacilityUseRecord>();
 	private int index = 0;
 
+	public List<FacilityUseRecord> listRecords() {
+		
+		List<FacilityUseRecord> recordList = new ArrayList<FacilityUseRecord>(records.values());
+		
+		return recordList;
+	}
+	
 	public List<FacilityUseRecord> listRecordsByFacilityId(String facilityId) {
 		
 		List<FacilityUseRecord> recordList = new ArrayList<FacilityUseRecord>();
@@ -42,26 +49,6 @@ public class FacilityUseTableRAM implements FacilityUsePersistency {
 		}
 
 		return recordList;
-	}
-	
-	public FacilityUseRecord getLatestRecord(String facilityId) {
-		
-		FacilityUseRecord latestRecord = null;
-		
-		for (Map.Entry<String, FacilityUseRecord> entry : records.entrySet()) {
-			FacilityUseRecord record = entry.getValue();
-			if (record.getFacilityId().equals(facilityId)) {
-				if (latestRecord != null) {
-					if (latestRecord.getAssignDate().before(record.getAssignDate()) == true) {
-						latestRecord = record;
-					}
-				} else {
-					latestRecord = record;
-				}
-			}
-		}
-		
-	    return latestRecord;
 	}
 	
 	public FacilityUseRecord getRecord(String recordId) {

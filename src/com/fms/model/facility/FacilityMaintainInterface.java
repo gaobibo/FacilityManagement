@@ -1,5 +1,7 @@
 package com.fms.model.facility;
 
-public interface FacilityMaintainInterface {
+import java.util.List;
 
+public interface FacilityMaintainInterface {
+	public List<FacilityMaintainRecord> listMaintenance(String facilityId);
 }

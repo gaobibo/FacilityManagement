@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.fms.dal.FacilityInspectTableRAM;
+import com.fms.dal.FacilityMaintainTableRAM;
 import com.fms.dal.FacilityTableRAM;
 import com.fms.dal.FacilityUseTableRAM;
 import com.fms.model.facility.Address;
@@ -57,11 +58,12 @@ public class FacilityUnitTest {
 		facilityDetail.setFacilityAddress(facilityAddress);
 		facilityDetail.setFacilityCapacity(facilityCapacity);
         
-        Facility facility = new Facility(facilityId);
+        Facility facility = new Facility();
+        facility.setFacilityId(facilityId);
         
         facility.setHandler(new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
 							new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()),
-							new FacilityMaintainHandler(),
+							new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance()),
 							FacilityTableRAM.getInstance());
         
         facility.addFacilityDetail(facilityDetail);
@@ -94,6 +96,12 @@ public class FacilityUnitTest {
 		Facility facility4 = facilityService.addNewFacility();
 		Facility facility5 = facilityService.addNewFacility();
 		
+		System.out.println("\t" + facility1.getFacilityId() + " -- " + 
+								  facility2.getFacilityId() + " -- " + 
+								  facility3.getFacilityId() + " -- " + 
+								  facility4.getFacilityId() + " -- " + 
+								  facility5.getFacilityId());
+		
 		facility2.removeFacility();
 		facility4.removeFacility();
 		
@@ -110,6 +118,8 @@ public class FacilityUnitTest {
 		
 		String facilityId1 = "1";
 		String facilityId2 = "2";
+		String employeeId1 = "Alice";
+		String employeeId2 = "Bob";
 		
 		FacilityUseHandler facilityUseHandler = new FacilityUseHandler(FacilityUseTableRAM.getInstance());
 		
@@ -117,8 +127,8 @@ public class FacilityUnitTest {
 		try { Thread.sleep(1000); } catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
 		Date startDate2 = new Date();
 		
-		facilityUseHandler.assignFacilityToUse(facilityId1);
-		facilityUseHandler.assignFacilityToUse(facilityId2);
+		facilityUseHandler.assignFacilityToUse(facilityId1, employeeId1);
+		facilityUseHandler.assignFacilityToUse(facilityId2, employeeId2);
 		
 		try { Thread.sleep(1000); } catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
 		

@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.fms.model.facility.FacilityInspectRecord;
-import com.fms.model.handler.FacilityInspectPersistency;
+import com.fms.model.facility.FacilityPersistencyInterface;
 
-public class FacilityInspectTableRAM implements FacilityInspectPersistency {
+public class FacilityInspectTableRAM implements FacilityPersistencyInterface<FacilityInspectRecord> {
 
     // static variable
     private static FacilityInspectTableRAM instance = null; 
@@ -30,6 +30,13 @@ public class FacilityInspectTableRAM implements FacilityInspectPersistency {
 	
 	private Map<String, FacilityInspectRecord> records = new HashMap<String, FacilityInspectRecord>();
 	private int index = 0;
+	
+	public List<FacilityInspectRecord> listRecords() {
+		
+		List<FacilityInspectRecord> recordList = new ArrayList<FacilityInspectRecord>(records.values());
+		
+		return recordList;
+	}
 	
 	public List<FacilityInspectRecord> listRecordsByFacilityId(String facilityId) {
 		

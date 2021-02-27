@@ -6,12 +6,13 @@ import java.util.List;
 
 import com.fms.model.facility.FacilityInspectInterface;
 import com.fms.model.facility.FacilityInspectRecord;
+import com.fms.model.facility.FacilityPersistencyInterface;
 
 public class FacilityInspectHandler implements FacilityInspectInterface {
 	
-	private FacilityInspectPersistency ficilityInspectPersistency;
+	private FacilityPersistencyInterface<FacilityInspectRecord> ficilityInspectPersistency;
 	
-	public FacilityInspectHandler(FacilityInspectPersistency ficilityInspectPersistency) {
+	public FacilityInspectHandler(FacilityPersistencyInterface<FacilityInspectRecord> ficilityInspectPersistency) {
 		this.ficilityInspectPersistency = ficilityInspectPersistency;
 	}
 	

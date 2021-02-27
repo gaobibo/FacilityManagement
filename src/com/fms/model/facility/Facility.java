@@ -18,25 +18,26 @@ public class Facility {
 	private FacilityUseInterface 		 facilityUseIfc;
 	private FacilityInspectInterface     facilityInspectIfc;
 	private FacilityMaintainInterface    facilityMaintainIfc;
-	private FacilityPersistency facilityPersistency;
-
-	public Facility(String facilityId) {
-		this.facilityId = facilityId;
-	}
+	private FacilityPersistencyInterface<Facility> facilityPersistencyIfc;
 	
 	public void setHandler(FacilityUseInterface facilityUseIfc,
 						   FacilityInspectInterface facilityInspectIfc,
 						   FacilityMaintainInterface facilityMaintainIfc,
-						   FacilityPersistency facilityPersistency) {
+						   FacilityPersistencyInterface<Facility> facilityPersistencyIfc) {
 		this.facilityUseIfc = facilityUseIfc;
 		this.facilityInspectIfc = facilityInspectIfc;
 		this.facilityMaintainIfc = facilityMaintainIfc;
-		this.facilityPersistency = facilityPersistency;
+		this.facilityPersistencyIfc = facilityPersistencyIfc;
 	}
-
+	
 	// Get the facility ID
 	public String getFacilityId() {
 		return facilityId;
+	}
+	
+	// Set the facility ID
+	public String setFacilityId(String facilityId) {
+		return this.facilityId = facilityId;
 	}
 	
 	// Get the facility Status
@@ -61,14 +62,14 @@ public class Facility {
 	// Add or set the detail information of facility
 	public void addFacilityDetail(FacilityDetail facilityDetail) {
 		this.facilityDetail = facilityDetail;
-		facilityPersistency.changeFacility(this);
+		facilityPersistencyIfc.changeRecord(this);
 	}
 
 	// Remove the facility
 	public void removeFacility() {
 		if (facilityStatus != STATUS_REMOVED) {
 			facilityStatus = STATUS_REMOVED;
-			facilityPersistency.removeFacility(facilityId);			
+			facilityPersistencyIfc.removeRecord(facilityId);			
 		}
 	}
 	
@@ -88,13 +89,13 @@ public class Facility {
 	}
 	
 	// Assign the facility to use
-	public boolean assignFacilityToUse() {
+	public boolean assignFacilityToUse(String employeeId) {
 		
 		boolean result = false;
 		
 		if (facilityStatus == STATUS_READY) {
 			
-			if (facilityUseIfc.assignFacilityToUse(facilityId) == true) {
+			if (facilityUseIfc.assignFacilityToUse(facilityId, employeeId) == true) {
 				
 				facilityStatus = STATUS_IN_USE;
 				
@@ -124,12 +125,17 @@ public class Facility {
 	}
 	
 	// List all the inspection records of facility
-	public List<FacilityInspectRecord> listInspections(String facilityId) {
+	public List<FacilityInspectRecord> listInspections() {
 		return facilityInspectIfc.listInspections(facilityId);
 	}
 	
 	// Inspect the facility
-	public boolean inspectFacility(String facilityId, String employeeId) {
+	public boolean inspectFacility(String employeeId) {
 		return facilityInspectIfc.inspectFacility(facilityId, employeeId);
+	}
+	
+	// List all the maintain records of facility
+	public List<FacilityMaintainRecord> listMaintenance() {
+		return facilityMaintainIfc.listMaintenance(facilityId);
 	}
 }

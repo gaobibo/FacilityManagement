@@ -6,9 +6,9 @@ import java.util.Map;
 import java.util.HashMap;
 
 import com.fms.model.facility.Facility;
-import com.fms.model.facility.FacilityPersistency;
+import com.fms.model.facility.FacilityPersistencyInterface;
 
-public class FacilityTableRAM implements FacilityPersistency {
+public class FacilityTableRAM implements FacilityPersistencyInterface<Facility> {
 
     // static variable
     private static FacilityTableRAM instance = null; 
@@ -31,32 +31,36 @@ public class FacilityTableRAM implements FacilityPersistency {
 	private Map<String, Facility> facilities = new HashMap<String, Facility>();
 	private int index = 0;
 	
-	public List<Facility> listFacilites() {
+	public List<Facility> listRecords() {
 		
 		List<Facility> facilityList = new ArrayList<Facility>(facilities.values());
 		
 		return facilityList;
 	}
 	
-	public Facility getFacility(String facilityId) {
+	public List<Facility> listRecordsByFacilityId(String facilityId) {
+		
+		List<Facility> facilityList = new ArrayList<Facility>();
+		
+		facilityList.add(facilities.get(facilityId));
+		
+		return facilityList;
+	}
+	
+	public Facility getRecord(String facilityId) {
 	    return facilities.get(facilityId);
 	}
 	
-	public void removeFacility(String facilityId) {
+	public void removeRecord(String facilityId) {
 		facilities.remove(facilityId);
     }
 	
-	public Facility addFacility() {
-		
-		String facilityId = Integer.toString(index++);
-		Facility facility = new Facility(facilityId);
-		
-		facilities.put(facilityId, facility);
-		
-		return facility;
+	public void addRecord(Facility facility) {
+		facility.setFacilityId(Integer.toString(index++));
+		facilities.put(facility.getFacilityId(), facility);
     }
 		
-	public boolean changeFacility(Facility facility) {
+	public boolean changeRecord(Facility facility) {
 		
 		boolean result = false;
 		

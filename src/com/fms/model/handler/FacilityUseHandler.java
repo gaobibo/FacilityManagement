@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fms.model.facility.FacilityPersistencyInterface;
 import com.fms.model.facility.FacilityUseInterface;
 import com.fms.model.facility.FacilityUseRecord;
 
 public class FacilityUseHandler implements FacilityUseInterface {
 	
-	private FacilityUsePersistency ficilityUsePersistency;
+	private FacilityPersistencyInterface<FacilityUseRecord> ficilityUsePersistency;
 	
-	public FacilityUseHandler(FacilityUsePersistency ficilityUsePersistency) {
+	public FacilityUseHandler(FacilityPersistencyInterface<FacilityUseRecord> ficilityUsePersistency) {
 		this.ficilityUsePersistency = ficilityUsePersistency;
 	}
 	
@@ -85,13 +86,14 @@ public class FacilityUseHandler implements FacilityUseInterface {
 	}
 	
 	// Assign a facility to an employee
-	public boolean assignFacilityToUse(String facilityId) {
+	public boolean assignFacilityToUse(String facilityId, String employeeId) {
 		
 		boolean result = false;
 		
 		try {					
 			FacilityUseRecord record = new FacilityUseRecord();
 			record.setFacilityId(facilityId);
+			record.setEmployeeId(employeeId);
 			record.setAssignDate(new Date());
 			ficilityUsePersistency.addRecord(record);
 			result = true;
@@ -108,9 +110,24 @@ public class FacilityUseHandler implements FacilityUseInterface {
 		boolean result = false;
 		
 		try {
-			FacilityUseRecord record = ficilityUsePersistency.getLatestRecord(facilityId);
-			record.setVacateDate(new Date());
-			result = ficilityUsePersistency.changeRecord(record);
+			FacilityUseRecord latestRecord = null;
+			
+			List<FacilityUseRecord> recordList = ficilityUsePersistency.listRecordsByFacilityId(facilityId);
+			
+			for (FacilityUseRecord record : recordList) {
+				if (latestRecord == null) {
+					latestRecord = record;
+				} else {
+					if (latestRecord.getAssignDate().before(record.getAssignDate()) == true) {
+						latestRecord = record;
+					}
+				}
+			}
+			
+			if (latestRecord != null) {
+				latestRecord.setVacateDate(new Date());
+				result = ficilityUsePersistency.changeRecord(latestRecord);				
+			}
 	    } catch (Exception se) {
 	      System.err.println(se.getMessage());
 	    }

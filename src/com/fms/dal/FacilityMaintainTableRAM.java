@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.fms.model.facility.FacilityMaintainRecord;
+import com.fms.model.facility.FacilityPersistencyInterface;
 
-public class FacilityMaintainTableRAM {
+public class FacilityMaintainTableRAM  implements FacilityPersistencyInterface<FacilityMaintainRecord> {
 
     // static variable
     private static FacilityMaintainTableRAM instance = null; 
@@ -29,6 +30,13 @@ public class FacilityMaintainTableRAM {
 	
 	private Map<String, FacilityMaintainRecord> records = new HashMap<String, FacilityMaintainRecord>();
 	private int index = 0;
+	
+	public List<FacilityMaintainRecord> listRecords() {
+		
+		List<FacilityMaintainRecord> recordList = new ArrayList<FacilityMaintainRecord>(records.values());
+		
+		return recordList;
+	}
 	
 	public List<FacilityMaintainRecord> listRecordsByFacilityId(String facilityId) {
 		

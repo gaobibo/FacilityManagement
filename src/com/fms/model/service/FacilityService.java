@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fms.dal.FacilityInspectTableRAM;
+import com.fms.dal.FacilityMaintainTableRAM;
 import com.fms.dal.FacilityTableRAM;
 import com.fms.dal.FacilityUseTableRAM;
 import com.fms.model.facility.Facility;
@@ -21,7 +22,7 @@ public class FacilityService {
 		List<Facility> facilityList = new ArrayList<Facility>();
 		
 		try {
-			facilityList = facilityTableRAM.listFacilites();
+			facilityList = facilityTableRAM.listRecords();
 	    } catch (Exception se) {
 	      System.err.println(se.getMessage());
 	    }
@@ -32,14 +33,14 @@ public class FacilityService {
 	// Add a facility
 	public Facility addNewFacility() {
 		
-		Facility facility = null;
+		Facility facility = new Facility();
 		
 		try {
-			facility = facilityTableRAM.addFacility();
+			facilityTableRAM.addRecord(facility);
 			
 			facility.setHandler(new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
 								new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()),
-								new FacilityMaintainHandler(),
+								new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance()),
 								FacilityTableRAM.getInstance());
 	    } catch (Exception se) {
 	      System.err.println(se.getMessage());
