@@ -8,13 +8,20 @@ public class FacilityMaintainRecord {
 	public static final String STATUS_SCHEDULED = "SCHEDULED";
 	public static final String STATUS_COMPLETED = "COMPLETED";
 	
+	public enum MaintainType {
+		  GENERAL,
+		  PROBLEMATIC
+		}
+	
 	private String recordId;
-	private String status = STATUS_SUBMITTED;
 	private String facilityId;
 	private String employeeId;
-	private Date reportedDate;
-	private Date scheduleDate;
-	private Date completeDate;
+	private String status = STATUS_SUBMITTED;
+	private MaintainType maintainType = MaintainType.GENERAL;
+	private Date submittedDate;
+	private Date scheduledDate;
+	private Date completedDate;
+	private double maintainCost;
 	
 	public String getRecordId() {
 		return recordId;
@@ -40,28 +47,28 @@ public class FacilityMaintainRecord {
 		this.employeeId = employeeId;
 	}
 	
-	public Date getReportedDate() {
-		return reportedDate;
+	public Date getSubmittedDate() {
+		return submittedDate;
 	}
 	
-	public void setReportedDate(Date reportedDate) {
-		this.reportedDate = reportedDate;
+	public void setSubmittedDate(Date submittedDate) {
+		this.submittedDate = submittedDate;
 	}
 	
-	public Date getScheduleDate() {
-		return scheduleDate;
+	public Date getScheduledDate() {
+		return scheduledDate;
 	}
 	
-	public void setScheduleDate(Date scheduleDate) {
-		this.scheduleDate = scheduleDate;
+	public void setScheduledDate(Date scheduledDate) {
+		this.scheduledDate = scheduledDate;
 	}
 	
-	public Date getCompleteDate() {
-		return completeDate;
+	public Date getCompletedDate() {
+		return completedDate;
 	}
 	
-	public void setCompleteDate(Date completeDate) {
-		this.completeDate = completeDate;
+	public void setCompletedDate(Date completedDate) {
+		this.completedDate = completedDate;
 	}
 
 	public String getStatus() {
@@ -70,5 +77,21 @@ public class FacilityMaintainRecord {
 	
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	public MaintainType getMaintainType() {
+		return maintainType;
+	}
+	
+	public void setMaintainType(MaintainType maintainType) {
+		this.maintainType = maintainType;
+	}
+	
+	public double getMaintainCost() {
+		return maintainCost;
+	}
+	
+	public void setMaintainCost(double maintainCost) {
+		this.maintainCost = maintainCost;
 	}
 }

@@ -17,7 +17,7 @@ public class FacilityService {
 	private FacilityTableRAM facilityTableRAM = FacilityTableRAM.getInstance();
 
 	// List all the facilities
-	public List<Facility> listFacilities() {
+	public List<Facility> listAllFacilities() {
 		
 		List<Facility> facilityList = new ArrayList<Facility>();
 		
@@ -33,19 +33,22 @@ public class FacilityService {
 	// Add a facility
 	public Facility addNewFacility() {
 		
-		Facility facility = new Facility();
+		Facility facility = null;
 		
 		try {
-			facilityTableRAM.addRecord(facility);
+			facility = new Facility();
 			
 			facility.setHandler(new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
 								new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()),
 								new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance()),
 								FacilityTableRAM.getInstance());
+			
+			facilityTableRAM.addRecord(facility);
+			
 	    } catch (Exception se) {
 	      System.err.println(se.getMessage());
 	    }
 		
 		return facility;
-	}
+	}	
 }

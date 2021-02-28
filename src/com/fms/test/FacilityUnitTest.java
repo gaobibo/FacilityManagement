@@ -1,5 +1,7 @@
 package com.fms.test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +13,7 @@ import com.fms.model.facility.Address;
 import com.fms.model.facility.Facility;
 import com.fms.model.facility.FacilityDetail;
 import com.fms.model.facility.FacilityInspectRecord;
+import com.fms.model.facility.FacilityMaintainRecord;
 import com.fms.model.facility.FacilityUseRecord;
 import com.fms.model.handler.FacilityInspectHandler;
 import com.fms.model.handler.FacilityMaintainHandler;
@@ -59,13 +62,13 @@ public class FacilityUnitTest {
 		facilityDetail.setFacilityCapacity(facilityCapacity);
         
         Facility facility = new Facility();
-        facility.setFacilityId(facilityId);
         
         facility.setHandler(new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
 							new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()),
 							new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance()),
 							FacilityTableRAM.getInstance());
         
+        facility.setFacilityId(facilityId);
         facility.addFacilityDetail(facilityDetail);
         
         result &= (facility.getFacilityId().equals(facilityId));
@@ -102,12 +105,8 @@ public class FacilityUnitTest {
 								  facility4.getFacilityId() + " -- " + 
 								  facility5.getFacilityId());
 		
-		facility2.removeFacility();
-		facility4.removeFacility();
-		
-		List<Facility> facilityList = facilityService.listFacilities();
-		
-		result &= (facilityList.size() == 3);
+		List<Facility> facilityList = facilityService.listAllFacilities();
+		result &= (facilityList.size() == 5);
 
 		System.out.println("FacilityService UT: " + (result ? "PASS" : "FAIL"));
 	}
@@ -129,9 +128,7 @@ public class FacilityUnitTest {
 		
 		facilityUseHandler.assignFacilityToUse(facilityId1, employeeId1);
 		facilityUseHandler.assignFacilityToUse(facilityId2, employeeId2);
-		
 		try { Thread.sleep(1000); } catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
-		
 		facilityUseHandler.vacateFacility(facilityId1);
 		facilityUseHandler.vacateFacility(facilityId2);
 		
@@ -222,6 +219,78 @@ public class FacilityUnitTest {
 		
 		boolean result = true;
 		
+		String facilityId1 = "1";
+		String facilityId2 = "2";
+		String employeeId1 = "Alice";
+		String employeeId2 = "Bob";
+		String employeeId3 = "John";
+		
+		Date submittedDate = parseDate("2020-2-1");
+		Date scheduledDate = parseDate("2020-2-2");
+		Date completedDate = parseDate("2020-2-3");
+
+		FacilityMaintainHandler facilityMaintainHandler = new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance());
+		
+		FacilityMaintainRecord record1 = facilityMaintainHandler.makeFacilityMaintRequest(facilityId1, employeeId1, submittedDate, FacilityMaintainRecord.MaintainType.GENERAL);
+		FacilityMaintainRecord record2 = facilityMaintainHandler.makeFacilityMaintRequest(facilityId1, employeeId2, submittedDate, FacilityMaintainRecord.MaintainType.PROBLEMATIC);
+		FacilityMaintainRecord record3 = facilityMaintainHandler.makeFacilityMaintRequest(facilityId1, employeeId3, submittedDate, FacilityMaintainRecord.MaintainType.PROBLEMATIC);
+		
+		FacilityMaintainRecord record4 = facilityMaintainHandler.makeFacilityMaintRequest(facilityId2, employeeId1, submittedDate, FacilityMaintainRecord.MaintainType.GENERAL);
+		FacilityMaintainRecord record5 = facilityMaintainHandler.makeFacilityMaintRequest(facilityId2, employeeId2, submittedDate, FacilityMaintainRecord.MaintainType.PROBLEMATIC);
+		FacilityMaintainRecord record6 = facilityMaintainHandler.makeFacilityMaintRequest(facilityId2, employeeId3, submittedDate, FacilityMaintainRecord.MaintainType.PROBLEMATIC);
+
+		System.out.println("\t" + record1.getRecordId() + " -- " + 
+								  record2.getRecordId() + " -- " + 
+								  record3.getRecordId() + " -- " +
+								  record4.getRecordId() + " -- " +
+								  record5.getRecordId() + " -- " +
+								  record6.getRecordId());
+		
+		facilityMaintainHandler.scheduleMaintenance(facilityId1, record2.getRecordId(), scheduledDate);
+		facilityMaintainHandler.completeMaintenance(facilityId1, record2.getRecordId(), completedDate, 100);
+		facilityMaintainHandler.scheduleMaintenance(facilityId1, record4.getRecordId(), scheduledDate);
+		facilityMaintainHandler.completeMaintenance(facilityId1, record4.getRecordId(), completedDate, 200);
+		
+		List<FacilityMaintainRecord> recordList1 = facilityMaintainHandler.listMaintenance(facilityId1);
+		List<FacilityMaintainRecord> recordList2 = facilityMaintainHandler.listMaintRequests(facilityId1);
+		List<FacilityMaintainRecord> recordList3 = facilityMaintainHandler.listFacilityProblems(facilityId1);
+		
+		List<FacilityMaintainRecord> recordList4 = facilityMaintainHandler.listMaintenance(facilityId2);
+		List<FacilityMaintainRecord> recordList5 = facilityMaintainHandler.listMaintRequests(facilityId2);
+		List<FacilityMaintainRecord> recordList6 = facilityMaintainHandler.listFacilityProblems(facilityId2);
+		
+		System.out.println("\t" + recordList1.size() + " -- " + 
+								  recordList2.size() + " -- " + 
+								  recordList3.size() + " -- " +
+								  recordList4.size() + " -- " +
+								  recordList5.size() + " -- " +
+								  recordList6.size());
+		
+		result &= (recordList1.size() == 3);
+		result &= (recordList2.size() == 2);
+		result &= (recordList3.size() == 2);
+		result &= (recordList4.size() == 3);
+		result &= (recordList5.size() == 3);
+		result &= (recordList6.size() == 2);
+		
+		double maintainCost = facilityMaintainHandler.calcMaintenaceCostForFacility(facilityId1);
+		double problemRate = facilityMaintainHandler.calcProblemRateForFacility(facilityId1);
+		double downTime = facilityMaintainHandler.calcDownTimeForFacility(facilityId1);
+		
+		System.out.println("\t" + maintainCost + " -- " + problemRate + " -- " + downTime);
+		
+		result &= (maintainCost == 100.0);
+		result &= (problemRate == 2.0 / 3.0);
+		result &= (downTime == 2.0);
+		
 		System.out.println("FacilityMaintainHandler UT: " + (result ? "PASS" : "FAIL"));
+	}
+	
+	private static Date parseDate(String date) {
+	    try {
+	        return new SimpleDateFormat("yyyy-MM-dd").parse(date);
+	    } catch (ParseException e) {
+	        return null;
+	    }
 	}
 }

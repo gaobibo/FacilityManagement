@@ -7,11 +7,10 @@ public class Facility {
 
 	public static final String STATUS_READY       = "READY";
 	public static final String STATUS_IN_USE      = "IN_USE";
-	public static final String STATUS_IN_MAINTAIN = "IN_MAINTAIN";
 	public static final String STATUS_REMOVED     = "REMOVED";
 	
-	private String facilityId;
-	private String facilityStatus = STATUS_READY;
+	protected String facilityId;
+	protected String facilityStatus = STATUS_READY;
 	
 	private FacilityDetail facilityDetail;
 	
@@ -36,13 +35,18 @@ public class Facility {
 	}
 	
 	// Set the facility ID
-	public String setFacilityId(String facilityId) {
-		return this.facilityId = facilityId;
+	public void setFacilityId(String facilityId) {
+		this.facilityId = facilityId;
 	}
 	
 	// Get the facility Status
 	public String getFacilityStatus() {
 		return facilityStatus;
+	}
+	
+	// Set the facility Status
+	public void setFacilityStatus(String facilityStatus) {
+		this.facilityStatus = facilityStatus;
 	}
 	
 	// Request the available capacity of facility
@@ -137,5 +141,37 @@ public class Facility {
 	// List all the maintain records of facility
 	public List<FacilityMaintainRecord> listMaintenance() {
 		return facilityMaintainIfc.listMaintenance(facilityId);
+	}
+	
+	public List<FacilityMaintainRecord> listMaintRequests() {
+		return facilityMaintainIfc.listMaintRequests(facilityId);
+	}
+	
+	public List<FacilityMaintainRecord> listFacilityProblems() {
+		return facilityMaintainIfc.listFacilityProblems(facilityId);
+	}
+	
+	public FacilityMaintainRecord makeFacilityMaintRequest(String employeeId, Date submittedDate, FacilityMaintainRecord.MaintainType maintainType) {
+		return facilityMaintainIfc.makeFacilityMaintRequest(facilityId, employeeId, submittedDate, maintainType);
+	}
+	
+	public boolean scheduleMaintenance(String recordId, Date date) {
+		return facilityMaintainIfc.scheduleMaintenance(facilityId, recordId, date);
+	}
+	
+	public boolean completeMaintenance(String recordId, Date date, double maintainCost) {
+		return facilityMaintainIfc.completeMaintenance(facilityId, recordId, date, maintainCost);
+	}
+	
+	public double calcMaintenaceCostForFacility() {
+		return facilityMaintainIfc.calcMaintenaceCostForFacility(facilityId);
+	}
+	
+	public double calcProblemRateForFacility() {
+		return facilityMaintainIfc.calcProblemRateForFacility(facilityId);
+	}
+	
+	public double calcDownTimeForFacility() {
+		return facilityMaintainIfc.calcDownTimeForFacility(facilityId);
 	}
 }
