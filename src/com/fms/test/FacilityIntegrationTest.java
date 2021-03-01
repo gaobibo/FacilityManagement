@@ -35,7 +35,7 @@ public class FacilityIntegrationTest {
 
 		boolean result = true;
 		
-		FacilityService facilityService = new FacilityService();
+		FacilityService facilityService = new FacilityService(FacilityTableRAM.getInstance());
 		
 		Facility facility1 = facilityService.addNewFacility();
 		Facility facility2 = facilityService.addNewFacility();
@@ -68,9 +68,7 @@ public class FacilityIntegrationTest {
 		final String facilityId = "1";
 		final String employeeId = "Alice";
 
-        Facility facility = new Facility();
-        
-        facility.setHandler(new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
+        Facility facility = new Facility(new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
 							new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()),
 							new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance()),
 							FacilityTableRAM.getInstance());
@@ -129,9 +127,7 @@ public class FacilityIntegrationTest {
 		final String facilityId = "1";
 		final String employeeId = "Alice";
 		
-        Facility facility = new Facility();
-        
-        facility.setHandler(new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
+        Facility facility = new Facility(new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
 							new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()),
 							new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance()),
 							FacilityTableRAM.getInstance());
@@ -162,9 +158,7 @@ public class FacilityIntegrationTest {
 		final String facilityId = "1";
 		final String employeeId = "Alice";
 
-        Facility facility = new Facility();
-        
-        facility.setHandler(new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
+        Facility facility = new Facility(new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
 							new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()),
 							new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance()),
 							FacilityTableRAM.getInstance());

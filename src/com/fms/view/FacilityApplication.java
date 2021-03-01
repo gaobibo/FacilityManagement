@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.fms.model.service.FacilityService;
-import com.fms.model.facility.Address;
+import com.fms.dal.FacilityTableRAM;
 import com.fms.model.facility.Facility;
 import com.fms.model.facility.FacilityDetail;
 import com.fms.model.facility.FacilityUseRecord;
@@ -15,7 +15,7 @@ import com.fms.model.facility.FacilityMaintainRecord;
 
 public class FacilityApplication {
 	
-	private static FacilityService facilityService = new FacilityService();
+	private static FacilityService facilityService = new FacilityService(FacilityTableRAM.getInstance());
 	
 	public static void main (String args[]) throws Exception {
 
@@ -24,19 +24,8 @@ public class FacilityApplication {
 		final String employeeChris = "chris@fms.com";
 		
 		final String facilityName = "East Building";
-		final String street = "800 East Madison St.";
-		final String unit = "Suite 2000";
-		final String city = "Wheeling";
-		final String state = "IL";
-		final String zip = "66617";
+		final String facilityAddress = "800 East Madison St, Wheeling, IL 66617";
 		final int facilityCapacity = 100;
-		
-		Address facilityAddress = new Address();
-		facilityAddress.setStreet(street);
-		facilityAddress.setUnit(unit);
-		facilityAddress.setCity(city);
-		facilityAddress.setState(state);
-		facilityAddress.setZip(zip);
 		
 		FacilityDetail facilityDetail = new FacilityDetail();
 		facilityDetail.setFacilityName(facilityName);

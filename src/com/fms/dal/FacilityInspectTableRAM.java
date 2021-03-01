@@ -10,9 +10,11 @@ import com.fms.model.facility.FacilityPersistencyInterface;
 
 public class FacilityInspectTableRAM implements FacilityPersistencyInterface<FacilityInspectRecord> {
 
-    // static variable
     private static FacilityInspectTableRAM instance = null; 
   
+	private Map<String, FacilityInspectRecord> records = new HashMap<String, FacilityInspectRecord>();
+	private int index = 0;
+
     // private constructor
     private FacilityInspectTableRAM() 
     { 
@@ -27,9 +29,6 @@ public class FacilityInspectTableRAM implements FacilityPersistencyInterface<Fac
   
         return instance; 
     }
-	
-	private Map<String, FacilityInspectRecord> records = new HashMap<String, FacilityInspectRecord>();
-	private int index = 0;
 	
 	public List<FacilityInspectRecord> listRecords() {
 		

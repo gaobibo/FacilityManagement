@@ -9,11 +9,11 @@ import com.fms.dal.FacilityInspectTableRAM;
 import com.fms.dal.FacilityMaintainTableRAM;
 import com.fms.dal.FacilityTableRAM;
 import com.fms.dal.FacilityUseTableRAM;
-import com.fms.model.facility.Address;
 import com.fms.model.facility.Facility;
 import com.fms.model.facility.FacilityDetail;
 import com.fms.model.facility.FacilityInspectRecord;
 import com.fms.model.facility.FacilityMaintainRecord;
+import com.fms.model.facility.FacilityRecord;
 import com.fms.model.facility.FacilityUseRecord;
 import com.fms.model.handler.FacilityInspectHandler;
 import com.fms.model.handler.FacilityMaintainHandler;
@@ -40,49 +40,33 @@ public class FacilityUnitTest {
 		boolean result = true;
 		
 		final String facilityId = "1";
-		final String facilityStatus = Facility.STATUS_READY;
+		final String facilityStatus = FacilityRecord.STATUS_READY;
 		final String facilityName = "East Building";
-		final String street = "800 East Madison St.";
-		final String unit = "Suite 2000";
-		final String city = "Wheeling";
-		final String state = "IL";
-		final String zip = "66617";
+		final String facilityAddress = "800 East Madison St, Wheeling, IL 66617";
 		final int facilityCapacity = 100;
-		
-		Address facilityAddress = new Address();
-		facilityAddress.setStreet(street);
-		facilityAddress.setUnit(unit);
-		facilityAddress.setCity(city);
-		facilityAddress.setState(state);
-		facilityAddress.setZip(zip);
 		
 		FacilityDetail facilityDetail = new FacilityDetail();
 		facilityDetail.setFacilityName(facilityName);
 		facilityDetail.setFacilityAddress(facilityAddress);
 		facilityDetail.setFacilityCapacity(facilityCapacity);
         
-        Facility facility = new Facility();
-        
-        facility.setHandler(new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
+        Facility facility = new Facility(new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
 							new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()),
 							new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance()),
 							FacilityTableRAM.getInstance());
         
         facility.setFacilityId(facilityId);
+        facility.setFacilityStatus(facilityStatus);
         facility.addFacilityDetail(facilityDetail);
         
         result &= (facility.getFacilityId().equals(facilityId));
         result &= (facility.getFacilityStatus().equals(facilityStatus));
         result &= (facility.getFacilityInformation().getFacilityName().equals(facilityName));
-        result &= (facility.getFacilityInformation().getFacilityAddress().getStreet().equals(street));
-        result &= (facility.getFacilityInformation().getFacilityAddress().getUnit().equals(unit));
-        result &= (facility.getFacilityInformation().getFacilityAddress().getCity().equals(city));
-        result &= (facility.getFacilityInformation().getFacilityAddress().getState().equals(state));
-        result &= (facility.getFacilityInformation().getFacilityAddress().getZip().equals(zip));
+        result &= (facility.getFacilityInformation().getFacilityAddress().equals(facilityAddress));
         result &= (facility.requestAvailableCapacity() == facilityCapacity);
         
         facility.removeFacility();
-        result &= (facility.getFacilityStatus() == Facility.STATUS_REMOVED);
+        result &= (facility.getFacilityStatus() == FacilityRecord.STATUS_REMOVED);
         
 		System.out.println("Facility UT: " + (result ? "PASS" : "FAIL"));
 	}
@@ -91,7 +75,7 @@ public class FacilityUnitTest {
 		
 		boolean result = true;
 		
-		FacilityService facilityService = new FacilityService();
+		FacilityService facilityService = new FacilityService(FacilityTableRAM.getInstance());
 		
 		Facility facility1 = facilityService.addNewFacility();
 		Facility facility2 = facilityService.addNewFacility();

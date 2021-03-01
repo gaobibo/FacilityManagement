@@ -3,8 +3,8 @@ package com.fms.model.facility;
 public class FacilityDetail {
 
 	private String facilityName;
+	private String facilityAddress;
 	private int facilityCapacity;
-	private Address facilityAddress;
 
 	public String getFacilityName() {
 		return facilityName;
@@ -22,11 +22,11 @@ public class FacilityDetail {
 		this.facilityCapacity = facilityCapacity;
 	}
 	
-	public Address getFacilityAddress() {
+	public String getFacilityAddress() {
 		return facilityAddress;
 	}
 
-	public void setFacilityAddress(Address facilityAddress) {
+	public void setFacilityAddress(String facilityAddress) {
 		this.facilityAddress = facilityAddress;
 	}
 }

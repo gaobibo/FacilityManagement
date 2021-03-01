@@ -1,35 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="com.fms.dal.FacilityTableRAM" project="FacilityManagement" 
-    file="/FacilityManagement/src/com/fms/dal/FacilityTableRAM.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="256" width="582" x="387" y="2177"/>    
-    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <enumeration id="2" language="java" name="com.fms.model.facility.FacilityMaintainRecord.MaintainType" 
+  <enumeration id="1" language="java" name="com.fms.model.facility.FacilityMaintainRecord.MaintainType" 
     project="FacilityManagement" file="/FacilityManagement/src/com/fms/model/facility/FacilityMaintainRecord.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1040" y="2792"/>    
+    <position height="-1" width="-1" x="1153" y="2861"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="3" language="java" name="com.fms.model.service.FacilityService" project="FacilityManagement" 
-    file="/FacilityManagement/src/com/fms/model/service/FacilityService.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="179" width="606" x="202" y="17"/>    
-    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="4" language="java" name="com.fms.model.facility.FacilityMaintainInterface" project="FacilityManagement" 
+  <interface id="2" language="java" name="com.fms.model.facility.FacilityMaintainInterface" project="FacilityManagement" 
     file="/FacilityManagement/src/com/fms/model/facility/FacilityMaintainInterface.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2040" y="1023"/>    
@@ -39,7 +21,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="5" language="java" name="com.fms.model.facility.FacilityPersistencyInterface" 
+  <interface id="3" language="java" name="com.fms.model.facility.FacilityPersistencyInterface" 
     project="FacilityManagement" file="/FacilityManagement/src/com/fms/model/facility/FacilityPersistencyInterface.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="196" width="2000" x="1048" y="1757"/>    
@@ -49,7 +31,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="6" language="java" name="com.fms.dal.FacilityMaintainTableRAM" project="FacilityManagement" 
+  <class id="4" language="java" name="com.fms.dal.FacilityMaintainTableRAM" project="FacilityManagement" 
     file="/FacilityManagement/src/com/fms/dal/FacilityMaintainTableRAM.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1486" y="2292"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -58,7 +40,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="com.fms.model.handler.FacilityInspectHandler" project="FacilityManagement" 
+  <class id="5" language="java" name="com.fms.model.handler.FacilityInspectHandler" project="FacilityManagement" 
     file="/FacilityManagement/src/com/fms/model/handler/FacilityInspectHandler.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="276" width="544" x="1026" y="1323"/>    
@@ -68,16 +50,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="com.fms.model.facility.Address" project="FacilityManagement" 
-    file="/FacilityManagement/src/com/fms/model/facility/Address.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="3347" y="564"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="9" language="java" name="com.fms.model.handler.FacilityMaintainHandler" project="FacilityManagement" 
+  <class id="6" language="java" name="com.fms.model.handler.FacilityMaintainHandler" project="FacilityManagement" 
     file="/FacilityManagement/src/com/fms/model/handler/FacilityMaintainHandler.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2048" y="1458"/>    
@@ -87,16 +60,16 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="com.fms.model.facility.FacilityDetail" project="FacilityManagement" 
+  <class id="7" language="java" name="com.fms.model.facility.FacilityDetail" project="FacilityManagement" 
     file="/FacilityManagement/src/com/fms/model/facility/FacilityDetail.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2916" y="437"/>    
+    <position height="-1" width="-1" x="2797" y="555"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="com.fms.model.facility.Facility" project="FacilityManagement" 
+  <class id="8" language="java" name="com.fms.model.facility.Facility" project="FacilityManagement" 
     file="/FacilityManagement/src/com/fms/model/facility/Facility.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2036" y="371"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -105,7 +78,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="com.fms.model.facility.FacilityInspectRecord" project="FacilityManagement" 
+  <class id="9" language="java" name="com.fms.model.facility.FacilityInspectRecord" project="FacilityManagement" 
     file="/FacilityManagement/src/com/fms/model/facility/FacilityInspectRecord.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2829" y="2687"/>    
@@ -115,7 +88,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="com.fms.model.handler.FacilityUseHandler" project="FacilityManagement" 
+  <class id="10" language="java" name="com.fms.model.handler.FacilityUseHandler" project="FacilityManagement" 
     file="/FacilityManagement/src/com/fms/model/handler/FacilityUseHandler.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="269" width="502" x="2540" y="1324"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -124,7 +97,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="com.fms.dal.FacilityInspectTableRAM" project="FacilityManagement" 
+  <class id="11" language="java" name="com.fms.dal.FacilityInspectTableRAM" project="FacilityManagement" 
     file="/FacilityManagement/src/com/fms/dal/FacilityInspectTableRAM.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2831" y="2294"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -133,7 +106,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="15" language="java" name="com.fms.model.facility.FacilityInspectInterface" project="FacilityManagement" 
+  <interface id="12" language="java" name="com.fms.model.facility.FacilityInspectInterface" project="FacilityManagement" 
     file="/FacilityManagement/src/com/fms/model/facility/FacilityInspectInterface.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="259" width="370" x="1109" y="893"/>    
@@ -143,7 +116,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="16" language="java" name="com.fms.model.facility.FacilityMaintainRecord" project="FacilityManagement" 
+  <class id="13" language="java" name="com.fms.model.facility.FacilityMaintainRecord" project="FacilityManagement" 
     file="/FacilityManagement/src/com/fms/model/facility/FacilityMaintainRecord.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1486" y="2861"/>    
@@ -153,7 +126,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="com.fms.model.facility.FacilityUseRecord" project="FacilityManagement" 
+  <class id="14" language="java" name="com.fms.model.facility.FacilityUseRecord" project="FacilityManagement" 
     file="/FacilityManagement/src/com/fms/model/facility/FacilityUseRecord.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2213" y="2716"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -162,7 +135,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="18" language="java" name="com.fms.dal.FacilityUseTableRAM" project="FacilityManagement" 
+  <class id="15" language="java" name="com.fms.dal.FacilityUseTableRAM" project="FacilityManagement" 
     file="/FacilityManagement/src/com/fms/dal/FacilityUseTableRAM.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2214" y="2292"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -171,7 +144,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="19" language="java" name="com.fms.model.facility.FacilityUseInterface" project="FacilityManagement" 
+  <interface id="16" language="java" name="com.fms.model.facility.FacilityUseInterface" project="FacilityManagement" 
     file="/FacilityManagement/src/com/fms/model/facility/FacilityUseInterface.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="245" width="360" x="2606" y="901"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -180,286 +153,288 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="20" language="java" name="com.fms.view.FacilityApplication" project="FacilityManagement" 
+  <class id="17" language="java" name="com.fms.model.service.FacilityService" project="FacilityManagement" 
+    file="/FacilityManagement/src/com/fms/model/service/FacilityService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="436" y="108"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="com.fms.view.FacilityApplication" project="FacilityManagement" 
     file="/FacilityManagement/src/com/fms/view/FacilityApplication.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="167" width="498" x="1113" y="-261"/>    
+    <position height="136" width="589" x="1119" y="-325"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
+  <class id="19" language="java" name="com.fms.model.facility.FacilityRecord" project="FacilityManagement" 
+    file="/FacilityManagement/src/com/fms/model/facility/FacilityRecord.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="667" y="2765"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="com.fms.dal.FacilityTableRAM" project="FacilityManagement" 
+    file="/FacilityManagement/src/com/fms/dal/FacilityTableRAM.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="665" y="2300"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
   <association id="21">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="22" name="ficilityInspectPersistency">        
-        <position height="22" width="177" x="1530" y="1681"/>      
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="22" name="records">        
+        <position height="0" width="0" x="-1530" y="1462"/>      
       </attribute>      
-      <multiplicity id="23" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-1338" y="1522"/>      
+      <multiplicity id="23" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-1530" y="1462"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
+    <end type="TARGET" refId="13" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="24">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="25" name="facilityInspectIfc">        
-        <position height="0" width="0" x="616" y="15"/>      
-      </attribute>      
-      <multiplicity id="26" minimum="0" maximum="1">        
-        <position height="0" width="0" x="616" y="15"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="27">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <association id="28">    
-    <bendpoint x="680" y="795"/>    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="29" name="facilities">        
-        <position height="0" width="0" x="952" y="23"/>      
-      </attribute>      
-      <multiplicity id="30" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="952" y="23"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="31">    
-    <bendpoint x="804" y="906"/>    
-    <bendpoint x="804" y="1855"/>    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="32" name="facilityPersistencyIfc">        
-        <position height="0" width="0" x="-1338" y="1522"/>      
-      </attribute>      
-      <multiplicity id="33" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-1338" y="1522"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="34">    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="35" name="ficilityUsePersistency">        
-        <position height="22" width="156" x="2395" y="1674"/>      
-      </attribute>      
-      <multiplicity id="36" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-1338" y="1522"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="37">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="38" name="facilityMaintainIfc">        
-        <position height="0" width="0" x="762" y="11"/>      
-      </attribute>      
-      <multiplicity id="39" minimum="0" maximum="1">        
-        <position height="0" width="0" x="762" y="11"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="40">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="5"/>  
-  </realization>  
-  <association id="41">    
-    <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="42" name="instance">        
-        <position height="0" width="0" x="-1326" y="1455"/>      
-      </attribute>      
-      <multiplicity id="43" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-1326" y="1455"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="44">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="15"/>  
-  </realization>  
-  <association id="45">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="46" name="instance">        
-        <position height="0" width="0" x="-1520" y="2159"/>      
-      </attribute>      
-      <multiplicity id="47" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-1520" y="2159"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="48">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="19"/>  
-  </realization>  
-  <association id="49">    
-    <bendpoint x="502" y="1583"/>    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="50" name="facilityTableRAM">        
-        <position height="0" width="0" x="-1520" y="2159"/>      
-      </attribute>      
-      <multiplicity id="51" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-1520" y="2159"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="52">    
-    <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="5"/>  
-  </realization>  
-  <association id="53">    
     <end type="SOURCE" refId="18" navigable="false">      
-      <attribute id="54" name="instance">        
-        <position height="0" width="0" x="-1344" y="1442"/>      
-      </attribute>      
-      <multiplicity id="55" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-1344" y="1442"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="56">    
-    <end type="SOURCE" refId="18" navigable="false">      
-      <attribute id="57" name="records">        
-        <position height="0" width="0" x="-1362" y="1323"/>      
-      </attribute>      
-      <multiplicity id="58" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="-1362" y="1323"/>      
-      </multiplicity>    
+      <attribute id="25" name="facilityService"/>      
+      <multiplicity id="26" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="17" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="59">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="60" name="ficilityMaintainPersistency">        
-        <position height="22" width="187" x="2059" y="1679"/>      
+  <association id="27">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="28" name="facilityMaintainIfc">        
+        <position height="0" width="0" x="762" y="11"/>      
       </attribute>      
-      <multiplicity id="61" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-1338" y="1522"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="62">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="63" name="facilityService"/>      
-      <multiplicity id="64" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="65">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="66" name="facilityDetail">        
-        <position height="0" width="0" x="2715" y="-479"/>      
-      </attribute>      
-      <multiplicity id="67" minimum="0" maximum="1">        
-        <position height="0" width="0" x="2715" y="-479"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="68">    
-    <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="69" name="records">        
-        <position height="0" width="0" x="-1341" y="1251"/>      
-      </attribute>      
-      <multiplicity id="70" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="-1341" y="1251"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="71">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="5"/>  
-  </realization>  
-  <realization id="72">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="5"/>  
-  </realization>  
-  <association id="73">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="74" name="instance">        
-        <position height="0" width="0" x="-1516" y="1449"/>      
-      </attribute>      
-      <multiplicity id="75" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-1516" y="1449"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="76">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="77" name="facilityUseIfc">        
-        <position height="0" width="0" x="986" y="17"/>      
-      </attribute>      
-      <multiplicity id="78" minimum="0" maximum="1">        
-        <position height="0" width="0" x="986" y="17"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="19" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="79">    
-    <bendpoint x="1343" y="2692"/>    
-    <end type="SOURCE" refId="16" navigable="false">      
-      <attribute id="80" name="maintainType">        
-        <position height="0" width="0" x="-1970" y="570"/>      
-      </attribute>      
-      <multiplicity id="81" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-1970" y="570"/>      
+      <multiplicity id="29" minimum="0" maximum="1">        
+        <position height="0" width="0" x="762" y="11"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <nesting id="82">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="2"/>  
-  </nesting>  
-  <association id="83">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="84" name="facilityAddress">        
-        <position height="0" width="0" x="3161" y="-938"/>      
+  <association id="30">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="31" name="instance">        
+        <position height="0" width="0" x="-1516" y="1449"/>      
       </attribute>      
-      <multiplicity id="85" minimum="0" maximum="1">        
-        <position height="0" width="0" x="3161" y="-938"/>      
+      <multiplicity id="32" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-1516" y="1449"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="86">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="87" name="records">        
-        <position height="0" width="0" x="-1530" y="1462"/>      
+  <realization id="33">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="16"/>  
+  </realization>  
+  <realization id="34">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="12"/>  
+  </realization>  
+  <realization id="35">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <association id="36">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="37" name="records">        
+        <position height="0" width="0" x="-1362" y="1323"/>      
       </attribute>      
-      <multiplicity id="88" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="-1530" y="1462"/>      
+      <multiplicity id="38" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-1362" y="1323"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="39">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="40" name="instance">        
+        <position height="0" width="0" x="-1326" y="1455"/>      
+      </attribute>      
+      <multiplicity id="41" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-1326" y="1455"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="42">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="3"/>  
+  </realization>  
+  <association id="43">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="44" name="instance">        
+        <position height="0" width="0" x="-1344" y="1442"/>      
+      </attribute>      
+      <multiplicity id="45" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-1344" y="1442"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="46">    
+    <bendpoint x="436" y="1855"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="47" name="facilityPersistencyIfc"/>      
+      <multiplicity id="48" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="49">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="50" name="facilityUseIfc">        
+        <position height="0" width="0" x="986" y="17"/>      
+      </attribute>      
+      <multiplicity id="51" minimum="0" maximum="1">        
+        <position height="0" width="0" x="986" y="17"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="52">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="53" name="records">        
+        <position height="0" width="0" x="-1341" y="1251"/>      
+      </attribute>      
+      <multiplicity id="54" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-1341" y="1251"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="55">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="56" name="facilityInspectIfc">        
+        <position height="0" width="0" x="616" y="15"/>      
+      </attribute>      
+      <multiplicity id="57" minimum="0" maximum="1">        
+        <position height="0" width="0" x="616" y="15"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="58">    
+    <bendpoint x="1343" y="2692"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="59" name="maintainType">        
+        <position height="0" width="0" x="-1857" y="639"/>      
+      </attribute>      
+      <multiplicity id="60" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-1857" y="639"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="61">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="62" name="ficilityMaintainPersistency">        
+        <position height="22" width="187" x="2059" y="1679"/>      
+      </attribute>      
+      <multiplicity id="63" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-1338" y="1522"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="64">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="3"/>  
+  </realization>  
+  <nesting id="65">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="1"/>  
+  </nesting>  
+  <realization id="66">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="3"/>  
+  </realization>  
+  <association id="67">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="68" name="instance"/>      
+      <multiplicity id="69" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="70">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="71" name="ficilityUsePersistency">        
+        <position height="22" width="156" x="2395" y="1674"/>      
+      </attribute>      
+      <multiplicity id="72" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-1338" y="1522"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="73">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="74" name="facilityDetail">        
+        <position height="0" width="0" x="2596" y="-361"/>      
+      </attribute>      
+      <multiplicity id="75" minimum="0" maximum="1">        
+        <position height="0" width="0" x="2596" y="-361"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="76">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="3"/>  
+  </realization>  
+  <association id="77">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="78" name="facilities"/>      
+      <multiplicity id="79" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="80">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="81" name="ficilityInspectPersistency">        
+        <position height="22" width="177" x="1530" y="1681"/>      
+      </attribute>      
+      <multiplicity id="82" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-1338" y="1522"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="83">    
+    <bendpoint x="804" y="906"/>    
+    <bendpoint x="805" y="1781"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="84" name="facilityPersistencyIfc">        
+        <position height="0" width="0" x="-1338" y="1522"/>      
+      </attribute>      
+      <multiplicity id="85" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-1338" y="1522"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

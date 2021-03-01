@@ -5,13 +5,15 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
-import com.fms.model.facility.Facility;
 import com.fms.model.facility.FacilityPersistencyInterface;
+import com.fms.model.facility.FacilityRecord;
 
-public class FacilityTableRAM implements FacilityPersistencyInterface<Facility> {
+public class FacilityTableRAM implements FacilityPersistencyInterface<FacilityRecord> {
 
-    // static variable
-    private static FacilityTableRAM instance = null; 
+    private static FacilityTableRAM instance = null;
+    
+	private Map<String, FacilityRecord> facilities = new HashMap<String, FacilityRecord>();
+	private int index = 0;
   
     // private constructor
     private FacilityTableRAM() 
@@ -27,27 +29,24 @@ public class FacilityTableRAM implements FacilityPersistencyInterface<Facility> 
   
         return instance; 
     }
-	
-	private Map<String, Facility> facilities = new HashMap<String, Facility>();
-	private int index = 0;
-	
-	public List<Facility> listRecords() {
 		
-		List<Facility> facilityList = new ArrayList<Facility>(facilities.values());
+	public List<FacilityRecord> listRecords() {
+		
+		List<FacilityRecord> facilityList = new ArrayList<FacilityRecord>(facilities.values());
 		
 		return facilityList;
 	}
 	
-	public List<Facility> listRecordsByFacilityId(String facilityId) {
+	public List<FacilityRecord> listRecordsByFacilityId(String facilityId) {
 		
-		List<Facility> facilityList = new ArrayList<Facility>();
+		List<FacilityRecord> facilityList = new ArrayList<FacilityRecord>();
 		
 		facilityList.add(facilities.get(facilityId));
 		
 		return facilityList;
 	}
 	
-	public Facility getRecord(String facilityId) {
+	public FacilityRecord getRecord(String facilityId) {
 	    return facilities.get(facilityId);
 	}
 	
@@ -55,12 +54,12 @@ public class FacilityTableRAM implements FacilityPersistencyInterface<Facility> 
 		facilities.remove(facilityId);
     }
 	
-	public void addRecord(Facility facility) {
+	public void addRecord(FacilityRecord facility) {
 		facility.setFacilityId(Integer.toString(index++));
 		facilities.put(facility.getFacilityId(), facility);
     }
-		
-	public boolean changeRecord(Facility facility) {
+	
+	public boolean changeRecord(FacilityRecord facility) {
 		
 		boolean result = false;
 		
