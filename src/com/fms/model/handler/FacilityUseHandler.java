@@ -16,6 +16,14 @@ public class FacilityUseHandler implements FacilityUseInterface {
 		this.ficilityUsePersistency = ficilityUsePersistency;
 	}
 	
+	public FacilityPersistencyInterface<FacilityUseRecord> getFacilityUsePersistency() {
+		return ficilityUsePersistency;
+	}
+	
+	public void setFacilityUsePersistency(FacilityPersistencyInterface<FacilityUseRecord> ficilityUsePersistency) {
+		this.ficilityUsePersistency = ficilityUsePersistency;
+	}
+	
 	// List all the use records of facility
 	public List<FacilityUseRecord> listActualUsage(String facilityId) {
 		

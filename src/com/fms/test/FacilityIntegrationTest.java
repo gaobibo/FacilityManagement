@@ -5,6 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.fms.dal.FacilityInspectTableRAM;
 import com.fms.dal.FacilityMaintainTableRAM;
 import com.fms.dal.FacilityTableRAM;
@@ -12,6 +16,7 @@ import com.fms.dal.FacilityUseTableRAM;
 import com.fms.model.facility.Facility;
 import com.fms.model.facility.FacilityInspectRecord;
 import com.fms.model.facility.FacilityMaintainRecord;
+import com.fms.model.facility.FacilityRecord;
 import com.fms.model.facility.FacilityUseRecord;
 import com.fms.model.handler.FacilityInspectHandler;
 import com.fms.model.handler.FacilityMaintainHandler;
@@ -20,7 +25,11 @@ import com.fms.model.service.FacilityService;
 
 public class FacilityIntegrationTest {
 	
+	private static ApplicationContext context;
+	
 	public static void main (String args[]) throws Exception {
+		
+		context = new ClassPathXmlApplicationContext("META-INF/app-context.xml");
 		
 		integrationBtwFacilityServiceAndFacility();
 		
@@ -29,13 +38,15 @@ public class FacilityIntegrationTest {
 		integrationBtwFacilityAndFacilityInspectHandler();
 		
 		integrationBtwFacilityAndFacilityMaintainHandler();
+		
+		((AbstractApplicationContext)context).close();
 	}
 	
 	private static void integrationBtwFacilityServiceAndFacility() {
 
 		boolean result = true;
 		
-		FacilityService facilityService = new FacilityService(FacilityTableRAM.getInstance());
+		FacilityService facilityService = (FacilityService)context.getBean("facilityService");
 		
 		Facility facility1 = facilityService.addNewFacility();
 		Facility facility2 = facilityService.addNewFacility();
@@ -68,12 +79,13 @@ public class FacilityIntegrationTest {
 		final String facilityId = "1";
 		final String employeeId = "Alice";
 
-        Facility facility = new Facility(new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
-							new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()),
-							new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance()),
-							FacilityTableRAM.getInstance());
+        Facility facility = new Facility(FacilityTableRAM.getInstance(), 
+        								 new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
+        								 new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()),
+        								 new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance()));
         
         facility.setFacilityId(facilityId);
+        facility.setFacilityStatus(FacilityRecord.STATUS_READY);
         
 		Date startDate1 = new Date(); 
 		try { Thread.sleep(1000); } catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
@@ -127,10 +139,10 @@ public class FacilityIntegrationTest {
 		final String facilityId = "1";
 		final String employeeId = "Alice";
 		
-        Facility facility = new Facility(new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
-							new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()),
-							new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance()),
-							FacilityTableRAM.getInstance());
+        Facility facility = new Facility(FacilityTableRAM.getInstance(), 
+        								 new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
+        								 new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()),
+        								 new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance()));
         
         facility.setFacilityId(facilityId);
 
@@ -158,10 +170,10 @@ public class FacilityIntegrationTest {
 		final String facilityId = "1";
 		final String employeeId = "Alice";
 
-        Facility facility = new Facility(new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
-							new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()),
-							new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance()),
-							FacilityTableRAM.getInstance());
+        Facility facility = new Facility(FacilityTableRAM.getInstance(), 
+        								 new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
+        								 new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()),
+        								 new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance()));
         
         facility.setFacilityId(facilityId);
 		

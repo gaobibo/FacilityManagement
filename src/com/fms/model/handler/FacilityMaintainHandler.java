@@ -16,6 +16,14 @@ public class FacilityMaintainHandler implements FacilityMaintainInterface {
 		this.ficilityMaintainPersistency = ficilityMaintainPersistency;
 	}
 	
+	public FacilityPersistencyInterface<FacilityMaintainRecord> getFacilityMaintainPersistency() {
+		return ficilityMaintainPersistency;
+	}
+	
+	public void setFacilityMaintainPersistency(FacilityPersistencyInterface<FacilityMaintainRecord> ficilityMaintainPersistency) {
+		this.ficilityMaintainPersistency = ficilityMaintainPersistency;
+	}
+	
 	// List all the maintain records of facility
 	public List<FacilityMaintainRecord> listMaintenance(String facilityId) {
 		

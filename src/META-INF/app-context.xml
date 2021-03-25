@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <description>Wiring the dependencies for the Facility Application.</description>
+
+    <context:component-scan base-package="com.fms" />
+
+    <bean id="facilityPersistencySingleton" class="com.fms.dal.FacilityTableRAM" scope="singleton" />
+    <bean id="facilityUsePersistencySingleton" class="com.fms.dal.FacilityUseTableRAM" scope="singleton" />
+    <bean id="facilityInspectPersistencySingleton" class="com.fms.dal.FacilityInspectTableRAM" scope="singleton" />
+    <bean id="facilityMaintainPersistencySingleton" class="com.fms.dal.FacilityMaintainTableRAM" scope="singleton" />
+
+    <bean id="facilityUseSingleton" class="com.fms.model.handler.FacilityUseHandler" scope="singleton">
+       <property name="facilityUsePersistency" ref="facilityUsePersistencySingleton" />
+    </bean>
+
+    <bean id="facilityInspectSingleton" class="com.fms.model.handler.FacilityInspectHandler" scope="singleton">
+       <property name="facilityInspectPersistency" ref="facilityInspectPersistencySingleton" />
+    </bean>
+
+    <bean id="facilityMaintainSingleton" class="com.fms.model.handler.FacilityMaintainHandler" scope="singleton">
+       <property name="facilityMaintainPersistency" ref="facilityMaintainPersistencySingleton" />
+    </bean>
+
+    <bean id="facilityService" class="com.fms.model.service.FacilityService" scope="singleton">
+        <property name="facilityPersistency" ref="facilityPersistencySingleton" />
+    </bean>
+
+    <bean id="facilityDetail" class="com.fms.model.facility.FacilityDetail" scope="prototype">
+        <property name="facilityCapacity">
+            <value>0</value>
+        </property>
+    </bean>
+
+    <bean id="facility" class="com.fms.model.facility.Facility" scope="prototype">
+        <property name="facilityDetail" ref="facilityDetail" />
+        <property name="facilityPersistency" ref="facilityPersistencySingleton" />
+        <property name="facilityUse" ref="facilityUseSingleton" />
+        <property name="facilityInspect" ref="facilityInspectSingleton" />
+        <property name="facilityMaintain" ref="facilityMaintainSingleton" />
+    </bean>
+
+</beans>

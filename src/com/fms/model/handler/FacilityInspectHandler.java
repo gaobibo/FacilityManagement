@@ -16,6 +16,14 @@ public class FacilityInspectHandler implements FacilityInspectInterface {
 		this.ficilityInspectPersistency = ficilityInspectPersistency;
 	}
 	
+	public FacilityPersistencyInterface<FacilityInspectRecord> getFacilityInspectPersistency() {
+		return ficilityInspectPersistency;
+	}
+	
+	public void setFacilityInspectPersistency(FacilityPersistencyInterface<FacilityInspectRecord> ficilityInspectPersistency) {
+		this.ficilityInspectPersistency = ficilityInspectPersistency;
+	}
+	
 	// List all the inspection records of facility
 	public List<FacilityInspectRecord> listInspections(String facilityId) {
 		

@@ -7,25 +7,55 @@ public class Facility {
 
 	private String facilityId;
 	private String facilityStatus;
-	
 	private FacilityDetail facilityDetail;
 	
-	private FacilityUseInterface 		 facilityUseIfc;
-	private FacilityInspectInterface     facilityInspectIfc;
-	private FacilityMaintainInterface    facilityMaintainIfc;
-	private FacilityPersistencyInterface<FacilityRecord> facilityPersistencyIfc;
+	private FacilityUseInterface 		 facilityUse;
+	private FacilityInspectInterface     facilityInspect;
+	private FacilityMaintainInterface    facilityMaintain;
+	private FacilityPersistencyInterface<FacilityRecord> facilityPersistency;
 	
-	public Facility(FacilityUseInterface facilityUseIfc,
-				    FacilityInspectInterface facilityInspectIfc,
-				    FacilityMaintainInterface facilityMaintainIfc,
-				    FacilityPersistencyInterface<FacilityRecord> facilityPersistencyIfc) {
-		this.facilityUseIfc = facilityUseIfc;
-		this.facilityInspectIfc = facilityInspectIfc;
-		this.facilityMaintainIfc = facilityMaintainIfc;
-		this.facilityPersistencyIfc = facilityPersistencyIfc;
+	public Facility(FacilityPersistencyInterface<FacilityRecord> facilityPersistency,
+					FacilityUseInterface facilityUse,
+				    FacilityInspectInterface facilityInspect,
+				    FacilityMaintainInterface facilityMaintain) {
+		this.facilityUse = facilityUse;
+		this.facilityInspect = facilityInspect;
+		this.facilityMaintain = facilityMaintain;
+		this.facilityPersistency = facilityPersistency;
 		
-		facilityStatus = FacilityRecord.STATUS_READY;
 		facilityDetail = new FacilityDetail();
+	}
+	
+	public FacilityPersistencyInterface<FacilityRecord> getFacilityPersistency() {
+		return facilityPersistency;
+	}
+	
+	public void setFacilityPersistency(FacilityPersistencyInterface<FacilityRecord> facilityPersistency) {
+		this.facilityPersistency = facilityPersistency;
+	}
+	
+	public FacilityUseInterface getFacilityUse() {
+		return facilityUse;
+	}
+	
+	public void setFacilityUse(FacilityUseInterface facilityUse) {
+		this.facilityUse = facilityUse;
+	}
+	
+	public FacilityInspectInterface getFacilityInspect() {
+		return facilityInspect;
+	}
+	
+	public void setFacilityInspect(FacilityInspectInterface facilityInspect) {
+		this.facilityInspect = facilityInspect;
+	}
+	
+	public FacilityMaintainInterface getFacilityMaintain() {
+		return facilityMaintain;
+	}
+	
+	public void setFacilityMaintain(FacilityMaintainInterface facilityMaintain) {
+		this.facilityMaintain = facilityMaintain;
 	}
 	
 	// Get the facility ID
@@ -51,6 +81,19 @@ public class Facility {
 		commitFacilityRecord();
 	}
 	
+	// Get the detail information of the facility
+	public FacilityDetail getFacilityDetail() {
+		return facilityDetail;
+	}
+	
+	// Set the detail information of the facility
+	public void setFacilityDetail(FacilityDetail facilityDetail) {
+		
+		this.facilityDetail = facilityDetail;
+		
+		commitFacilityRecord();
+	}
+	
 	// Commit the facility record into persistency
 	public void commitFacilityRecord() {
 		
@@ -60,7 +103,7 @@ public class Facility {
 												   this.facilityDetail.getFacilityAddress(), 
 												   this.facilityDetail.getFacilityCapacity());
 		
-		facilityPersistencyIfc.changeRecord(record);
+		facilityPersistency.changeRecord(record);
 	}
 	
 	// Retrieve the facility record from persistency
@@ -74,11 +117,6 @@ public class Facility {
 	
 	/* Facility general public interfaces */
 	
-	// Get the detail information of the facility
-	public FacilityDetail getFacilityInformation() {
-		return facilityDetail;
-	}
-	
 	// Request the available capacity of the facility
 	public int requestAvailableCapacity() {
 		if (facilityDetail != null) {
@@ -88,19 +126,11 @@ public class Facility {
 		}
 	}
 	
-	// Add or set the detail information of the facility
-	public void addFacilityDetail(FacilityDetail facilityDetail) {
-		
-		this.facilityDetail = facilityDetail;
-		
-		commitFacilityRecord();
-	}
-
 	// Remove the facility
 	public void removeFacility() {
 		if (facilityStatus != FacilityRecord.STATUS_REMOVED) {
 			facilityStatus = FacilityRecord.STATUS_REMOVED;
-			facilityPersistencyIfc.removeRecord(facilityId);			
+			facilityPersistency.removeRecord(facilityId);			
 		}
 	}
 	
@@ -108,17 +138,17 @@ public class Facility {
 	
 	// List the actual usage of the facility
 	public List<FacilityUseRecord> listActualUsage() {
-		return facilityUseIfc.listActualUsage(facilityId);
+		return facilityUse.listActualUsage(facilityId);
 	}
 	
 	// Calculate the usage rate of the facility
 	public double calcUsageRate(Date startDate, Date endDate) {
-		return facilityUseIfc.calcUsageRate(facilityId, startDate, endDate);
+		return facilityUse.calcUsageRate(facilityId, startDate, endDate);
 	}
 	
 	// Check if the facility is in-use or not from start date to end date
 	public boolean isInUseDuringInterval(Date startDate, Date endDate) {
-		return facilityUseIfc.isInUseDuringInterval(facilityId, startDate, endDate);
+		return facilityUse.isInUseDuringInterval(facilityId, startDate, endDate);
 	}
 	
 	// Assign the facility to use
@@ -128,7 +158,7 @@ public class Facility {
 		
 		if (facilityStatus == FacilityRecord.STATUS_READY) {
 			
-			if (facilityUseIfc.assignFacilityToUse(facilityId, employeeId) == true) {
+			if (facilityUse.assignFacilityToUse(facilityId, employeeId) == true) {
 				
 				facilityStatus = FacilityRecord.STATUS_IN_USE;
 				
@@ -146,7 +176,7 @@ public class Facility {
 		
 		if (facilityStatus == FacilityRecord.STATUS_IN_USE) {
 			
-			if (facilityUseIfc.vacateFacility(facilityId) == true) {
+			if (facilityUse.vacateFacility(facilityId) == true) {
 				
 				facilityStatus = FacilityRecord.STATUS_READY;
 				
@@ -161,58 +191,58 @@ public class Facility {
 	
 	// List all the inspection records of the facility
 	public List<FacilityInspectRecord> listInspections() {
-		return facilityInspectIfc.listInspections(facilityId);
+		return facilityInspect.listInspections(facilityId);
 	}
 	
 	// Inspect the facility
 	public boolean inspectFacility(String employeeId) {
-		return facilityInspectIfc.inspectFacility(facilityId, employeeId);
+		return facilityInspect.inspectFacility(facilityId, employeeId);
 	}
 	
 	/* Facility maintain-related public interfaces */
 	
 	// List all the maintain records of the facility
 	public List<FacilityMaintainRecord> listMaintenance() {
-		return facilityMaintainIfc.listMaintenance(facilityId);
+		return facilityMaintain.listMaintenance(facilityId);
 	}
 	
 	// List the maintain records of the facility with submitted status
 	public List<FacilityMaintainRecord> listMaintRequests() {
-		return facilityMaintainIfc.listMaintRequests(facilityId);
+		return facilityMaintain.listMaintRequests(facilityId);
 	}
 	
 	// List the maintain records of the facility with problematic type
 	public List<FacilityMaintainRecord> listFacilityProblems() {
-		return facilityMaintainIfc.listFacilityProblems(facilityId);
+		return facilityMaintain.listFacilityProblems(facilityId);
 	}
 	
 	// Submit a maintain record for the facility
 	public FacilityMaintainRecord makeFacilityMaintRequest(String employeeId, Date submittedDate, FacilityMaintainRecord.MaintainType maintainType) {
-		return facilityMaintainIfc.makeFacilityMaintRequest(facilityId, employeeId, submittedDate, maintainType);
+		return facilityMaintain.makeFacilityMaintRequest(facilityId, employeeId, submittedDate, maintainType);
 	}
 	
 	// Schedule a maintain record for the facility with scheduled date
 	public boolean scheduleMaintenance(String recordId, Date scheduledDate) {
-		return facilityMaintainIfc.scheduleMaintenance(facilityId, recordId, scheduledDate);
+		return facilityMaintain.scheduleMaintenance(facilityId, recordId, scheduledDate);
 	}
 	
 	// Complete a maintain record for the facility with completed date and maintain cost
 	public boolean completeMaintenance(String recordId, Date completedDate, double maintainCost) {
-		return facilityMaintainIfc.completeMaintenance(facilityId, recordId, completedDate, maintainCost);
+		return facilityMaintain.completeMaintenance(facilityId, recordId, completedDate, maintainCost);
 	}
 	
 	// Calculate the total maintain cost for the facility
 	public double calcMaintenaceCostForFacility() {
-		return facilityMaintainIfc.calcMaintenaceCostForFacility(facilityId);
+		return facilityMaintain.calcMaintenaceCostForFacility(facilityId);
 	}
 	
 	// Calculate the problem rate for the facility (number of problematic records of number of total records)
 	public double calcProblemRateForFacility() {
-		return facilityMaintainIfc.calcProblemRateForFacility(facilityId);
+		return facilityMaintain.calcProblemRateForFacility(facilityId);
 	}
 	
 	// Calculate the down time for the facility (days between submitted date and completed date of the problematic records)
 	public double calcDownTimeForFacility() {
-		return facilityMaintainIfc.calcDownTimeForFacility(facilityId);
+		return facilityMaintain.calcDownTimeForFacility(facilityId);
 	}
 }

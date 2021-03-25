@@ -5,6 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.fms.dal.FacilityInspectTableRAM;
 import com.fms.dal.FacilityMaintainTableRAM;
 import com.fms.dal.FacilityTableRAM;
@@ -22,7 +26,11 @@ import com.fms.model.service.FacilityService;
 
 public class FacilityUnitTest {
 	
+	private static ApplicationContext context;
+	
 	public static void main (String args[]) throws Exception {
+		
+        context = new ClassPathXmlApplicationContext("META-INF/app-context.xml");
 		
 		unitTestFacility();
 		
@@ -33,6 +41,8 @@ public class FacilityUnitTest {
 		unitTestFacilityInspectHandler();
 		
 		unitTestFacilityMaintainHandler();
+		
+		((AbstractApplicationContext)context).close();
 	}
 	
 	private static void unitTestFacility() {
@@ -45,24 +55,24 @@ public class FacilityUnitTest {
 		final String facilityAddress = "800 East Madison St, Wheeling, IL 66617";
 		final int facilityCapacity = 100;
 		
-		FacilityDetail facilityDetail = new FacilityDetail();
+		FacilityDetail facilityDetail = (FacilityDetail)context.getBean("facilityDetail");
 		facilityDetail.setFacilityName(facilityName);
 		facilityDetail.setFacilityAddress(facilityAddress);
 		facilityDetail.setFacilityCapacity(facilityCapacity);
         
-        Facility facility = new Facility(new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
-							new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()),
-							new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance()),
-							FacilityTableRAM.getInstance());
+        Facility facility = new Facility(FacilityTableRAM.getInstance(), 
+        								 new FacilityUseHandler(FacilityUseTableRAM.getInstance()), 
+        								 new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()), 
+        								 new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance()));
         
         facility.setFacilityId(facilityId);
         facility.setFacilityStatus(facilityStatus);
-        facility.addFacilityDetail(facilityDetail);
+        facility.setFacilityDetail(facilityDetail);
         
         result &= (facility.getFacilityId().equals(facilityId));
         result &= (facility.getFacilityStatus().equals(facilityStatus));
-        result &= (facility.getFacilityInformation().getFacilityName().equals(facilityName));
-        result &= (facility.getFacilityInformation().getFacilityAddress().equals(facilityAddress));
+        result &= (facility.getFacilityDetail().getFacilityName().equals(facilityName));
+        result &= (facility.getFacilityDetail().getFacilityAddress().equals(facilityAddress));
         result &= (facility.requestAvailableCapacity() == facilityCapacity);
         
         facility.removeFacility();
@@ -75,7 +85,7 @@ public class FacilityUnitTest {
 		
 		boolean result = true;
 		
-		FacilityService facilityService = new FacilityService(FacilityTableRAM.getInstance());
+        FacilityService facilityService = (FacilityService)context.getBean("facilityService");
 		
 		Facility facility1 = facilityService.addNewFacility();
 		Facility facility2 = facilityService.addNewFacility();

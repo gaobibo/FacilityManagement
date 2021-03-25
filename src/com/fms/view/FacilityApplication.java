@@ -5,8 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.fms.model.service.FacilityService;
-import com.fms.dal.FacilityTableRAM;
 import com.fms.model.facility.Facility;
 import com.fms.model.facility.FacilityDetail;
 import com.fms.model.facility.FacilityUseRecord;
@@ -15,10 +18,13 @@ import com.fms.model.facility.FacilityMaintainRecord;
 
 public class FacilityApplication {
 	
-	private static FacilityService facilityService = new FacilityService(FacilityTableRAM.getInstance());
-	
 	public static void main (String args[]) throws Exception {
 
+        ApplicationContext context = new ClassPathXmlApplicationContext("META-INF/app-context.xml");
+        System.out.println("***************** Application Context instantiated! ******************");
+        
+        FacilityService facilityService = (FacilityService)context.getBean("facilityService");
+		
 		final String employeeAlice = "alice@fms.com";
 		final String employeePeter = "peter@fms.com";
 		final String employeeChris = "chris@fms.com";
@@ -27,7 +33,7 @@ public class FacilityApplication {
 		final String facilityAddress = "800 East Madison St, Wheeling, IL 66617";
 		final int facilityCapacity = 100;
 		
-		FacilityDetail facilityDetail = new FacilityDetail();
+		FacilityDetail facilityDetail = (FacilityDetail)context.getBean("facilityDetail");
 		facilityDetail.setFacilityName(facilityName);
 		facilityDetail.setFacilityAddress(facilityAddress);
 		facilityDetail.setFacilityCapacity(facilityCapacity);
@@ -38,11 +44,11 @@ public class FacilityApplication {
 		Facility facility4 = facilityService.addNewFacility();
 		Facility facility5 = facilityService.addNewFacility();
 		
-        facility1.addFacilityDetail(facilityDetail);
-        facility2.addFacilityDetail(facilityDetail);
-        facility3.addFacilityDetail(facilityDetail);
-        facility4.addFacilityDetail(facilityDetail);
-        facility5.addFacilityDetail(facilityDetail);
+        facility1.setFacilityDetail(facilityDetail);
+        facility2.setFacilityDetail(facilityDetail);
+        facility3.setFacilityDetail(facilityDetail);
+        facility4.setFacilityDetail(facilityDetail);
+        facility5.setFacilityDetail(facilityDetail);
 		
 		facility4.removeFacility();
 		facility5.removeFacility();
@@ -187,7 +193,9 @@ public class FacilityApplication {
 		
 		System.out.println("Facility1 MaintainCost: " + maintainCost);
 		System.out.println("Facility1 ProblemRate: " + problemRate);
-		System.out.println("Facility1 DownTime: " + downTime);	
+		System.out.println("Facility1 DownTime: " + downTime);
+		
+		((AbstractApplicationContext)context).close();
 	}
 	
 	private static Date parseDate(String date) {

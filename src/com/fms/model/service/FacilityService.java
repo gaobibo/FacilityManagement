@@ -3,25 +3,28 @@ package com.fms.model.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fms.dal.FacilityInspectTableRAM;
-import com.fms.dal.FacilityMaintainTableRAM;
-import com.fms.dal.FacilityTableRAM;
-import com.fms.dal.FacilityUseTableRAM;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+
 import com.fms.model.facility.Facility;
 import com.fms.model.facility.FacilityPersistencyInterface;
 import com.fms.model.facility.FacilityRecord;
-import com.fms.model.handler.FacilityInspectHandler;
-import com.fms.model.handler.FacilityMaintainHandler;
-import com.fms.model.handler.FacilityUseHandler;
 
 public class FacilityService {
 
-	private FacilityPersistencyInterface<FacilityRecord> facilityPersistencyIfc;
+	@Autowired
+	private ApplicationContext context;
 	
-	public FacilityService(FacilityPersistencyInterface<FacilityRecord> facilityPersistencyIfc) {
-		this.facilityPersistencyIfc = facilityPersistencyIfc;
+	private FacilityPersistencyInterface<FacilityRecord> facilityPersistency;
+	
+	public FacilityPersistencyInterface<FacilityRecord> getFacilityPersistency() {
+		return facilityPersistency;
 	}
-
+	
+	public void setFacilityPersistency(FacilityPersistencyInterface<FacilityRecord> facilityPersistency) {
+		this.facilityPersistency = facilityPersistency;
+	}
+	
 	// List all the facilities
 	public List<Facility> listAllFacilities() {
 		
@@ -29,14 +32,12 @@ public class FacilityService {
 		List<Facility> facilityList = new ArrayList<Facility>();
 		
 		try {
-			List<FacilityRecord> facilityRecords = facilityPersistencyIfc.listRecords();
+			List<FacilityRecord> facilityRecords = facilityPersistency.listRecords();
 			
 			for (FacilityRecord record : facilityRecords) {
 				
-				facility = new Facility(new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
-											     new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()),
-											     new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance()),
-											     FacilityTableRAM.getInstance());
+				facility = (Facility)context.getBean("facility");
+				
 				facility.retrieveFacilityRecord(record);
 				
 				facilityList.add(facility);
@@ -55,12 +56,10 @@ public class FacilityService {
 		
 		try {
 			FacilityRecord record = new FacilityRecord();
-			facilityPersistencyIfc.addRecord(record);
+			facilityPersistency.addRecord(record);
 			
-			facility = new Facility(new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
-								    new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()),
-								    new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance()),
-								    FacilityTableRAM.getInstance());
+			facility = (Facility)context.getBean("facility");
+			
 			facility.retrieveFacilityRecord(record);
 			
 	    } catch (Exception se) {
