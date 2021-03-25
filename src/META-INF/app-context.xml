@@ -26,7 +26,7 @@
        <property name="facilityMaintainPersistency" ref="facilityMaintainPersistencySingleton" />
     </bean>
 
-    <bean id="facilityService" class="com.fms.model.service.FacilityService" scope="singleton">
+    <bean id="facilityServiceSingleton" class="com.fms.model.service.FacilityService" scope="singleton">
         <property name="facilityPersistency" ref="facilityPersistencySingleton" />
     </bean>
 

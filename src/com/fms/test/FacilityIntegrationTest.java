@@ -9,18 +9,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.fms.dal.FacilityInspectTableRAM;
-import com.fms.dal.FacilityMaintainTableRAM;
-import com.fms.dal.FacilityTableRAM;
-import com.fms.dal.FacilityUseTableRAM;
 import com.fms.model.facility.Facility;
 import com.fms.model.facility.FacilityInspectRecord;
 import com.fms.model.facility.FacilityMaintainRecord;
 import com.fms.model.facility.FacilityRecord;
 import com.fms.model.facility.FacilityUseRecord;
-import com.fms.model.handler.FacilityInspectHandler;
-import com.fms.model.handler.FacilityMaintainHandler;
-import com.fms.model.handler.FacilityUseHandler;
 import com.fms.model.service.FacilityService;
 
 public class FacilityIntegrationTest {
@@ -46,7 +39,7 @@ public class FacilityIntegrationTest {
 
 		boolean result = true;
 		
-		FacilityService facilityService = (FacilityService)context.getBean("facilityService");
+		FacilityService facilityService = (FacilityService)context.getBean("facilityServiceSingleton");
 		
 		Facility facility1 = facilityService.addNewFacility();
 		Facility facility2 = facilityService.addNewFacility();
@@ -79,10 +72,7 @@ public class FacilityIntegrationTest {
 		final String facilityId = "1";
 		final String employeeId = "Alice";
 
-        Facility facility = new Facility(FacilityTableRAM.getInstance(), 
-        								 new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
-        								 new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()),
-        								 new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance()));
+        Facility facility = (Facility)context.getBean("facility");
         
         facility.setFacilityId(facilityId);
         facility.setFacilityStatus(FacilityRecord.STATUS_READY);
@@ -139,10 +129,7 @@ public class FacilityIntegrationTest {
 		final String facilityId = "1";
 		final String employeeId = "Alice";
 		
-        Facility facility = new Facility(FacilityTableRAM.getInstance(), 
-        								 new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
-        								 new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()),
-        								 new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance()));
+        Facility facility = (Facility)context.getBean("facility");
         
         facility.setFacilityId(facilityId);
 
@@ -170,10 +157,7 @@ public class FacilityIntegrationTest {
 		final String facilityId = "1";
 		final String employeeId = "Alice";
 
-        Facility facility = new Facility(FacilityTableRAM.getInstance(), 
-        								 new FacilityUseHandler(FacilityUseTableRAM.getInstance()),
-        								 new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()),
-        								 new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance()));
+        Facility facility = (Facility)context.getBean("facility");
         
         facility.setFacilityId(facilityId);
 		

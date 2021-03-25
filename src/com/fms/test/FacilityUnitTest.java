@@ -9,10 +9,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.fms.dal.FacilityInspectTableRAM;
-import com.fms.dal.FacilityMaintainTableRAM;
-import com.fms.dal.FacilityTableRAM;
-import com.fms.dal.FacilityUseTableRAM;
 import com.fms.model.facility.Facility;
 import com.fms.model.facility.FacilityDetail;
 import com.fms.model.facility.FacilityInspectRecord;
@@ -60,10 +56,7 @@ public class FacilityUnitTest {
 		facilityDetail.setFacilityAddress(facilityAddress);
 		facilityDetail.setFacilityCapacity(facilityCapacity);
         
-        Facility facility = new Facility(FacilityTableRAM.getInstance(), 
-        								 new FacilityUseHandler(FacilityUseTableRAM.getInstance()), 
-        								 new FacilityInspectHandler(FacilityInspectTableRAM.getInstance()), 
-        								 new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance()));
+        Facility facility = (Facility)context.getBean("facility");
         
         facility.setFacilityId(facilityId);
         facility.setFacilityStatus(facilityStatus);
@@ -85,7 +78,7 @@ public class FacilityUnitTest {
 		
 		boolean result = true;
 		
-        FacilityService facilityService = (FacilityService)context.getBean("facilityService");
+        FacilityService facilityService = (FacilityService)context.getBean("facilityServiceSingleton");
 		
 		Facility facility1 = facilityService.addNewFacility();
 		Facility facility2 = facilityService.addNewFacility();
@@ -114,7 +107,7 @@ public class FacilityUnitTest {
 		String employeeId1 = "Alice";
 		String employeeId2 = "Bob";
 		
-		FacilityUseHandler facilityUseHandler = new FacilityUseHandler(FacilityUseTableRAM.getInstance());
+		FacilityUseHandler facilityUseHandler = (FacilityUseHandler)context.getBean("facilityUseSingleton");
 		
 		Date startDate1 = new Date(); 
 		try { Thread.sleep(1000); } catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
@@ -180,7 +173,7 @@ public class FacilityUnitTest {
 		String employeeId1 = "Alice";
 		String employeeId2 = "Bob";
 		
-		FacilityInspectHandler facilityInspectHandler = new FacilityInspectHandler(FacilityInspectTableRAM.getInstance());
+		FacilityInspectHandler facilityInspectHandler = (FacilityInspectHandler)context.getBean("facilityInspectSingleton");
 		
 		facilityInspectHandler.inspectFacility(facilityId1, employeeId1);
 		facilityInspectHandler.inspectFacility(facilityId1, employeeId2);
@@ -223,7 +216,7 @@ public class FacilityUnitTest {
 		Date scheduledDate = parseDate("2020-2-2");
 		Date completedDate = parseDate("2020-2-3");
 
-		FacilityMaintainHandler facilityMaintainHandler = new FacilityMaintainHandler(FacilityMaintainTableRAM.getInstance());
+		FacilityMaintainHandler facilityMaintainHandler = (FacilityMaintainHandler)context.getBean("facilityMaintainSingleton");
 		
 		FacilityMaintainRecord record1 = facilityMaintainHandler.makeFacilityMaintRequest(facilityId1, employeeId1, submittedDate, FacilityMaintainRecord.MaintainType.GENERAL);
 		FacilityMaintainRecord record2 = facilityMaintainHandler.makeFacilityMaintRequest(facilityId1, employeeId2, submittedDate, FacilityMaintainRecord.MaintainType.PROBLEMATIC);

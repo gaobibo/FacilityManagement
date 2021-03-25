@@ -23,7 +23,7 @@ public class FacilityApplication {
         ApplicationContext context = new ClassPathXmlApplicationContext("META-INF/app-context.xml");
         System.out.println("***************** Application Context instantiated! ******************");
         
-        FacilityService facilityService = (FacilityService)context.getBean("facilityService");
+        FacilityService facilityService = (FacilityService)context.getBean("facilityServiceSingleton");
 		
 		final String employeeAlice = "alice@fms.com";
 		final String employeePeter = "peter@fms.com";
