@@ -18,12 +18,14 @@ import com.fms.model.facility.FacilityMaintainRecord;
 
 public class FacilityApplication {
 	
+	private static FacilityService facilityService;
+	
 	public static void main (String args[]) throws Exception {
 
         ApplicationContext context = new ClassPathXmlApplicationContext("META-INF/app-context.xml");
         System.out.println("***************** Application Context instantiated! ******************");
         
-        FacilityService facilityService = (FacilityService)context.getBean("facilityServiceSingleton");
+        facilityService = (FacilityService)context.getBean("facilityServiceSingleton");
 		
 		final String employeeAlice = "alice@fms.com";
 		final String employeePeter = "peter@fms.com";
