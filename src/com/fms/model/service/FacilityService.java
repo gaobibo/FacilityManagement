@@ -7,8 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 import com.fms.model.facility.Facility;
+import com.fms.model.facility.FacilityInspectInterface;
+import com.fms.model.facility.FacilityMaintainInterface;
 import com.fms.model.facility.FacilityPersistencyInterface;
 import com.fms.model.facility.FacilityRecord;
+import com.fms.model.facility.FacilityUseInterface;
+import com.fms.model.facility.HotelBedRoom;
+import com.fms.model.facility.HotelMeetingRoom;
 
 public class FacilityService {
 
@@ -16,6 +21,7 @@ public class FacilityService {
 	private ApplicationContext context;
 	
 	private FacilityPersistencyInterface<FacilityRecord> facilityPersistency;
+	private List<Facility> facilityList;
 	
 	public FacilityPersistencyInterface<FacilityRecord> getFacilityPersistency() {
 		return facilityPersistency;
@@ -28,16 +34,23 @@ public class FacilityService {
 	// List all the facilities
 	public List<Facility> listAllFacilities() {
 		
-		Facility facility = null;
-		List<Facility> facilityList = new ArrayList<Facility>();
+		facilityList = new ArrayList<Facility>();
 		
 		try {
 			List<FacilityRecord> facilityRecords = facilityPersistency.listRecords();
 			
 			for (FacilityRecord record : facilityRecords) {
-				
-				facility = (Facility)context.getBean("facility");
-				
+
+				Facility facility = null;
+
+				if (record.getFacilityType().equals(FacilityRecord.TYPE_BEDROOM)) {
+					facility = (Facility)context.getBean("hotelbedroom");
+				} else if (record.getFacilityType().equals(FacilityRecord.TYPE_MEETINGROOM)) {
+					facility = (Facility)context.getBean("hotelmeetingroom");
+				} else {
+					facility = (Facility)context.getBean("facility");
+				}
+
 				facility.retrieveFacilityRecord(record);
 				
 				facilityList.add(facility);
@@ -55,10 +68,50 @@ public class FacilityService {
 		Facility facility = null;
 		
 		try {
-			FacilityRecord record = new FacilityRecord();
+			FacilityRecord record = new FacilityRecord(FacilityRecord.TYPE_FACILITY);
 			facilityPersistency.addRecord(record);
 			
 			facility = (Facility)context.getBean("facility");
+			
+			facility.retrieveFacilityRecord(record);
+			
+	    } catch (Exception se) {
+	      System.err.println(se.getMessage());
+	    }
+		
+		return facility;
+	}	
+	
+	// Add a hotel bed room
+	public Facility addHotelBedRoom() {
+		
+		Facility facility = null;
+		
+		try {
+			FacilityRecord record = new FacilityRecord(FacilityRecord.TYPE_BEDROOM);
+			facilityPersistency.addRecord(record);
+			
+			facility = (Facility)context.getBean("hotelbedroom");
+			
+			facility.retrieveFacilityRecord(record);
+			
+	    } catch (Exception se) {
+	      System.err.println(se.getMessage());
+	    }
+		
+		return facility;
+	}	
+	
+	// Add a hotel meeting room
+	public Facility addHotelMeetingRoom() {
+		
+		Facility facility = null;
+		
+		try {
+			FacilityRecord record = new FacilityRecord(FacilityRecord.TYPE_MEETINGROOM);
+			facilityPersistency.addRecord(record);
+			
+			facility = (Facility)context.getBean("hotelmeetingroom");
 			
 			facility.retrieveFacilityRecord(record);
 			

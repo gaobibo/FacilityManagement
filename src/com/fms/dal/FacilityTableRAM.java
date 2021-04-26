@@ -9,26 +9,9 @@ import com.fms.model.facility.FacilityPersistencyInterface;
 import com.fms.model.facility.FacilityRecord;
 
 public class FacilityTableRAM implements FacilityPersistencyInterface<FacilityRecord> {
-
-    private static FacilityTableRAM instance = null;
     
 	private Map<String, FacilityRecord> facilities = new HashMap<String, FacilityRecord>();
 	private int index = 0;
-  
-    // private constructor
-    private FacilityTableRAM() 
-    { 
-    } 
-  
-    // static method to create instance of FacilityTableRAM class 
-    public static FacilityTableRAM getInstance() 
-    { 
-        if (instance == null) {
-        	instance = new FacilityTableRAM();
-        }
-  
-        return instance; 
-    }
 		
 	public List<FacilityRecord> listRecords() {
 		
@@ -50,19 +33,18 @@ public class FacilityTableRAM implements FacilityPersistencyInterface<FacilityRe
 	    return facilities.get(facilityId);
 	}
 	
-	public void removeRecord(String facilityId) {
-		facilities.remove(facilityId);
-    }
-	
 	public void addRecord(FacilityRecord facility) {
 		facility.setFacilityId(Integer.toString(index++));
 		facilities.put(facility.getFacilityId(), facility);
     }
 	
+	public void removeRecord(String facilityId) {
+		facilities.remove(facilityId);
+    }
+	
 	public boolean changeRecord(FacilityRecord facility) {
 		
 		boolean result = false;
-		
 		if (facilities.containsKey(facility.getFacilityId()) == true) {
 			facilities.put(facility.getFacilityId(), facility);
 			result = true;

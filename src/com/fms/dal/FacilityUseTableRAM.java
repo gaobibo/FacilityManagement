@@ -10,25 +10,8 @@ import com.fms.model.facility.FacilityUseRecord;
 
 public class FacilityUseTableRAM implements FacilityPersistencyInterface<FacilityUseRecord> {
 
-    private static FacilityUseTableRAM instance = null; 
-  
 	private Map<String, FacilityUseRecord> records = new HashMap<String, FacilityUseRecord>();
 	private int index = 0;
-
-    // private constructor
-    private FacilityUseTableRAM() 
-    { 
-    } 
-  
-    // static method to create instance of FacilityUseTableRAM class 
-    public static FacilityUseTableRAM getInstance() 
-    { 
-        if (instance == null) {
-        	instance = new FacilityUseTableRAM();
-        }
-  
-        return instance; 
-    }
 	
 	public List<FacilityUseRecord> listRecords() {
 		

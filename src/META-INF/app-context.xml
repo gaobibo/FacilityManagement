@@ -17,6 +17,14 @@
     <bean id="facilityUseSingleton" class="com.fms.model.handler.FacilityUseHandler" scope="singleton">
        <property name="facilityUsePersistency" ref="facilityUsePersistencySingleton" />
     </bean>
+    
+    <bean id="facilityDailyUseSingleton" class="com.fms.model.handler.FacilityDailyUseHandler" scope="singleton">
+       <property name="facilityUsePersistency" ref="facilityUsePersistencySingleton" />
+    </bean>
+
+    <bean id="facilityHourlyUseSingleton" class="com.fms.model.handler.FacilityHourlyUseHandler" scope="singleton">
+       <property name="facilityUsePersistency" ref="facilityUsePersistencySingleton" />
+    </bean>
 
     <bean id="facilityInspectSingleton" class="com.fms.model.handler.FacilityInspectHandler" scope="singleton">
        <property name="facilityInspectPersistency" ref="facilityInspectPersistencySingleton" />
@@ -37,9 +45,25 @@
     </bean>
 
     <bean id="facility" class="com.fms.model.facility.Facility" scope="prototype">
-        <property name="facilityDetail" ref="facilityDetail" />
         <property name="facilityPersistency" ref="facilityPersistencySingleton" />
+        <property name="facilityDetail" ref="facilityDetail" />
         <property name="facilityUse" ref="facilityUseSingleton" />
+        <property name="facilityInspect" ref="facilityInspectSingleton" />
+        <property name="facilityMaintain" ref="facilityMaintainSingleton" />
+    </bean>
+    
+    <bean id="hotelbedroom" class="com.fms.model.facility.HotelBedRoom" scope="prototype">
+        <property name="facilityPersistency" ref="facilityPersistencySingleton" />
+        <property name="facilityDetail" ref="facilityDetail" />
+        <property name="facilityUse" ref="facilityDailyUseSingleton" />
+        <property name="facilityInspect" ref="facilityInspectSingleton" />
+        <property name="facilityMaintain" ref="facilityMaintainSingleton" />
+    </bean>
+    
+    <bean id="hotelmeetingroom" class="com.fms.model.facility.HotelMeetingRoom" scope="prototype">
+        <property name="facilityPersistency" ref="facilityPersistencySingleton" />
+        <property name="facilityDetail" ref="facilityDetail" />
+        <property name="facilityUse" ref="facilityHourlyUseSingleton" />
         <property name="facilityInspect" ref="facilityInspectSingleton" />
         <property name="facilityMaintain" ref="facilityMaintainSingleton" />
     </bean>

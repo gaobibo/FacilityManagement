@@ -10,15 +10,27 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.fms.model.service.FacilityService;
+import com.fms.model.facility.Employee;
 import com.fms.model.facility.Facility;
 import com.fms.model.facility.FacilityDetail;
+import com.fms.model.facility.FacilityInspectInterface;
 import com.fms.model.facility.FacilityUseRecord;
+import com.fms.model.facility.HotelBedRoom;
+import com.fms.model.facility.HotelMeetingRoom;
+import com.fms.model.facility.Resource;
+import com.fms.model.facility.ResourceVisitor;
+import com.fms.model.handler.ResourceTreeView;
 import com.fms.model.facility.FacilityInspectRecord;
+import com.fms.model.facility.FacilityMaintainInterface;
 import com.fms.model.facility.FacilityMaintainRecord;
+import com.fms.model.facility.FacilityPersistencyInterface;
+import com.fms.model.facility.FacilityRecord;
+import com.fms.model.facility.FacilityUseInterface;
 
 public class FacilityApplication {
 	
 	private static FacilityService facilityService;
+	private static ResourceVisitor resourceVisitor;
 	
 	public static void main (String args[]) throws Exception {
 
@@ -27,11 +39,11 @@ public class FacilityApplication {
         
         facilityService = (FacilityService)context.getBean("facilityServiceSingleton");
 		
-		final String employeeAlice = "alice@fms.com";
-		final String employeePeter = "peter@fms.com";
-		final String employeeChris = "chris@fms.com";
+		Employee employeeAlice = new Employee("alice@fms.com", "Alice Brady");
+		Employee employeePeter = new Employee("peter@fms.com", "Peter Cohen");
+		Employee employeeChris = new Employee("chris@fms.com", "Chris Davis");
 		
-		final String facilityName = "East Building";
+		final String facilityName = "East Room";
 		final String facilityAddress = "800 East Madison St, Wheeling, IL 66617";
 		final int facilityCapacity = 100;
 		
@@ -41,25 +53,42 @@ public class FacilityApplication {
 		facilityDetail.setFacilityCapacity(facilityCapacity);
 		
 		Facility facility1 = facilityService.addNewFacility();
-		Facility facility2 = facilityService.addNewFacility();
-		Facility facility3 = facilityService.addNewFacility();
+		Facility facility2 = facilityService.addHotelBedRoom();
+		Facility facility3 = facilityService.addHotelMeetingRoom();
 		Facility facility4 = facilityService.addNewFacility();
 		Facility facility5 = facilityService.addNewFacility();
-		
+
         facility1.setFacilityDetail(facilityDetail);
         facility2.setFacilityDetail(facilityDetail);
         facility3.setFacilityDetail(facilityDetail);
         facility4.setFacilityDetail(facilityDetail);
         facility5.setFacilityDetail(facilityDetail);
+
+		for (Facility facility : facilityService.listAllFacilities()) {
+			System.out.println("Facility: " + facility.getFacilityId() + " -- " + facility.getFacilityStatus());		
+		}
 		
+		facility1.attachObserver(employeeAlice);
+		facility1.attachObserver(employeePeter);
+		facility1.attachObserver(employeeChris);
+		facility2.attachObserver(employeeAlice);
+		facility2.attachObserver(employeePeter);
+		facility2.attachObserver(employeeChris);
+		facility3.attachObserver(employeeAlice);
+		facility3.attachObserver(employeePeter);
+		facility3.attachObserver(employeeChris);
+		facility4.attachObserver(employeeAlice);
+		facility4.attachObserver(employeePeter);
+		facility4.attachObserver(employeeChris);
+		facility5.attachObserver(employeeAlice);
+		facility5.attachObserver(employeePeter);
+		facility5.attachObserver(employeeChris);
+
 		facility4.removeFacility();
 		facility5.removeFacility();
-		
-		List<Facility> facilityList = facilityService.listAllFacilities();
 
-		for (Facility facility : facilityList) {
-			System.out.println("Facility: " + facility.getFacilityId() + " -- " + 
-									  facility.getFacilityStatus());		
+		for (Facility facility : facilityService.listAllFacilities()) {
+			System.out.println("Facility: " + facility.getFacilityId() + " -- " + facility.getFacilityStatus());		
 		}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -68,9 +97,9 @@ public class FacilityApplication {
 		try { Thread.sleep(1000); } catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
 		Date startDate2 = new Date();
 		
-		facility1.assignFacilityToUse(employeeAlice);
-		facility2.assignFacilityToUse(employeePeter);
-		facility3.assignFacilityToUse(employeeChris);
+		facility1.assignFacilityToUse(employeeAlice.getEmployeeId());
+		facility2.assignFacilityToUse(employeePeter.getEmployeeId());
+		facility3.assignFacilityToUse(employeeChris.getEmployeeId());
 		try { Thread.sleep(1000); } catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
 		facility1.vacateFacility();
 		facility2.vacateFacility();
@@ -124,9 +153,9 @@ public class FacilityApplication {
 			
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
-        facility1.inspectFacility(employeeAlice);
-        facility2.inspectFacility(employeePeter);
-        facility3.inspectFacility(employeeChris);
+        facility1.inspectFacility(employeeAlice.getEmployeeId());
+        facility2.inspectFacility(employeePeter.getEmployeeId());
+        facility3.inspectFacility(employeeChris.getEmployeeId());
 		
 		List<FacilityInspectRecord> inpsectRecordList1 = facility1.listInspections();
 		List<FacilityInspectRecord> inpsectRecordList2 = facility2.listInspections();
@@ -159,9 +188,9 @@ public class FacilityApplication {
 		Date scheduledDate = parseDate("2020-2-2");
 		Date completedDate = parseDate("2020-2-3");
 
-		FacilityMaintainRecord record1 = facility1.makeFacilityMaintRequest(employeeAlice, submittedDate, FacilityMaintainRecord.MaintainType.GENERAL);
-		FacilityMaintainRecord record2 = facility1.makeFacilityMaintRequest(employeePeter, submittedDate, FacilityMaintainRecord.MaintainType.PROBLEMATIC);
-		FacilityMaintainRecord record3 = facility1.makeFacilityMaintRequest(employeeChris, submittedDate, FacilityMaintainRecord.MaintainType.PROBLEMATIC);
+		FacilityMaintainRecord record1 = facility1.makeFacilityMaintRequest(employeeAlice.getEmployeeId(), submittedDate, FacilityMaintainRecord.MaintainType.GENERAL);
+		FacilityMaintainRecord record2 = facility1.makeFacilityMaintRequest(employeePeter.getEmployeeId(), submittedDate, FacilityMaintainRecord.MaintainType.PROBLEMATIC);
+		FacilityMaintainRecord record3 = facility1.makeFacilityMaintRequest(employeeChris.getEmployeeId(), submittedDate, FacilityMaintainRecord.MaintainType.PROBLEMATIC);
 		
 		System.out.println("Facility1 MaintainRecord: " + record1.getRecordId() + " -- " + 
 								  record1.getFacilityId() + " -- " + 
@@ -196,6 +225,10 @@ public class FacilityApplication {
 		System.out.println("Facility1 MaintainCost: " + maintainCost);
 		System.out.println("Facility1 ProblemRate: " + problemRate);
 		System.out.println("Facility1 DownTime: " + downTime);
+		
+		List<? extends Resource> resourceList = facilityService.listAllFacilities();
+		resourceVisitor = new ResourceTreeView();
+		resourceVisitor.visitResourceList(resourceList);
 		
 		((AbstractApplicationContext)context).close();
 	}

@@ -4,17 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fms.dal.FacilityInspectTableRAM;
 import com.fms.model.facility.FacilityInspectInterface;
 import com.fms.model.facility.FacilityInspectRecord;
 import com.fms.model.facility.FacilityPersistencyInterface;
 
 public class FacilityInspectHandler implements FacilityInspectInterface {
 	
-	private FacilityPersistencyInterface<FacilityInspectRecord> ficilityInspectPersistency;
-	
-	public FacilityInspectHandler(FacilityPersistencyInterface<FacilityInspectRecord> ficilityInspectPersistency) {
-		this.ficilityInspectPersistency = ficilityInspectPersistency;
-	}
+  	private FacilityPersistencyInterface<FacilityInspectRecord> ficilityInspectPersistency;
 	
 	public FacilityPersistencyInterface<FacilityInspectRecord> getFacilityInspectPersistency() {
 		return ficilityInspectPersistency;

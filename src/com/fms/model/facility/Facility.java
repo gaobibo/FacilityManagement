@@ -1,29 +1,46 @@
 package com.fms.model.facility;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Facility {
+public class Facility implements Resource {
 
-	private String facilityId;
+	protected String facilityId;
+	private String facilityType;
 	private String facilityStatus;
 	private FacilityDetail facilityDetail;
+	private List<ResourceObserver> observerList = new ArrayList<ResourceObserver>();
 	
-	private FacilityUseInterface 		 facilityUse;
+	protected FacilityUseInterface 		 facilityUse;
 	private FacilityInspectInterface     facilityInspect;
 	private FacilityMaintainInterface    facilityMaintain;
 	private FacilityPersistencyInterface<FacilityRecord> facilityPersistency;
 	
-	public Facility(FacilityPersistencyInterface<FacilityRecord> facilityPersistency,
-					FacilityUseInterface facilityUse,
-				    FacilityInspectInterface facilityInspect,
-				    FacilityMaintainInterface facilityMaintain) {
-		this.facilityUse = facilityUse;
-		this.facilityInspect = facilityInspect;
-		this.facilityMaintain = facilityMaintain;
-		this.facilityPersistency = facilityPersistency;
-		
-		facilityDetail = new FacilityDetail();
+	public void acceptVisitor(ResourceVisitor visitor) {
+		visitor.visitFacility(this);
+	}
+	
+	public void attachObserver(ResourceObserver observer) {
+		observerList.add(observer);		
+	}
+	
+	public void dettachObserver(ResourceObserver observer) {
+		observerList.remove(observer);
+	}
+	
+	private void notifyObserver() {
+		for (ResourceObserver observer : observerList) {
+			observer.updateStatus(this);
+		}
+	}
+	
+	public String getResourceId() {
+		return facilityId;
+	}
+	
+	public String getResourceStatus() {
+		return facilityStatus;
 	}
 	
 	public FacilityPersistencyInterface<FacilityRecord> getFacilityPersistency() {
@@ -68,6 +85,16 @@ public class Facility {
 		this.facilityId = facilityId;
 	}
 	
+	// Get the facility Type
+	public String getFacilityType() {
+		return facilityType;
+	}
+	
+	// Set the facility Type
+	public void setFacilityType(String facilityType) {
+		this.facilityType = facilityType;
+	}
+	
 	// Get the facility status
 	public String getFacilityStatus() {
 		return facilityStatus;
@@ -77,6 +104,8 @@ public class Facility {
 	public void setFacilityStatus(String facilityStatus) {
 		
 		this.facilityStatus = facilityStatus;
+		
+		notifyObserver();
 		
 		commitFacilityRecord();
 	}
@@ -98,6 +127,7 @@ public class Facility {
 	public void commitFacilityRecord() {
 		
 		FacilityRecord record = new FacilityRecord(this.facilityId, 
+												   this.facilityType,
 												   this.facilityStatus, 
 												   this.facilityDetail.getFacilityName(), 
 												   this.facilityDetail.getFacilityAddress(), 
@@ -109,6 +139,7 @@ public class Facility {
 	// Retrieve the facility record from persistency
 	public void retrieveFacilityRecord(FacilityRecord record) {
 		this.facilityId = record.getFacilityId();
+		this.facilityType = record.getFacilityType();
 		this.facilityStatus = record.getFacilityStatus();
 		this.facilityDetail.setFacilityName(record.getFacilityName());
 		this.facilityDetail.setFacilityAddress(record.getFacilityAddress());
@@ -129,7 +160,7 @@ public class Facility {
 	// Remove the facility
 	public void removeFacility() {
 		if (facilityStatus != FacilityRecord.STATUS_REMOVED) {
-			facilityStatus = FacilityRecord.STATUS_REMOVED;
+			setFacilityStatus(FacilityRecord.STATUS_REMOVED);
 			facilityPersistency.removeRecord(facilityId);			
 		}
 	}
@@ -143,6 +174,7 @@ public class Facility {
 	
 	// Calculate the usage rate of the facility
 	public double calcUsageRate(Date startDate, Date endDate) {
+		System.out.println("calcUsageRate in Facility");
 		return facilityUse.calcUsageRate(facilityId, startDate, endDate);
 	}
 	
@@ -160,7 +192,7 @@ public class Facility {
 			
 			if (facilityUse.assignFacilityToUse(facilityId, employeeId) == true) {
 				
-				facilityStatus = FacilityRecord.STATUS_IN_USE;
+				setFacilityStatus(FacilityRecord.STATUS_IN_USE);
 				
 				result = true;
 			}
@@ -178,7 +210,7 @@ public class Facility {
 			
 			if (facilityUse.vacateFacility(facilityId) == true) {
 				
-				facilityStatus = FacilityRecord.STATUS_READY;
+				setFacilityStatus(FacilityRecord.STATUS_READY);
 				
 				result = true;
 			}

@@ -4,24 +4,21 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fms.dal.FacilityUseTableRAM;
 import com.fms.model.facility.FacilityPersistencyInterface;
 import com.fms.model.facility.FacilityUseInterface;
 import com.fms.model.facility.FacilityUseRecord;
 
 public class FacilityUseHandler implements FacilityUseInterface {
 	
-	private FacilityPersistencyInterface<FacilityUseRecord> ficilityUsePersistency;
-	
-	public FacilityUseHandler(FacilityPersistencyInterface<FacilityUseRecord> ficilityUsePersistency) {
-		this.ficilityUsePersistency = ficilityUsePersistency;
-	}
+	protected FacilityPersistencyInterface<FacilityUseRecord> facilityUsePersistency;
 	
 	public FacilityPersistencyInterface<FacilityUseRecord> getFacilityUsePersistency() {
-		return ficilityUsePersistency;
+		return facilityUsePersistency;
 	}
 	
-	public void setFacilityUsePersistency(FacilityPersistencyInterface<FacilityUseRecord> ficilityUsePersistency) {
-		this.ficilityUsePersistency = ficilityUsePersistency;
+	public void setFacilityUsePersistency(FacilityPersistencyInterface<FacilityUseRecord> facilityUsePersistency) {
+		this.facilityUsePersistency = facilityUsePersistency;
 	}
 	
 	// List all the use records of facility
@@ -30,7 +27,7 @@ public class FacilityUseHandler implements FacilityUseInterface {
 		List<FacilityUseRecord> recordList = new ArrayList<FacilityUseRecord>();
 		
 		try {
-			recordList = ficilityUsePersistency.listRecordsByFacilityId(facilityId);
+			recordList = facilityUsePersistency.listRecordsByFacilityId(facilityId);
 	    } catch (Exception se) {
 	    	System.err.println(se.getMessage());
 	    }
@@ -41,6 +38,8 @@ public class FacilityUseHandler implements FacilityUseInterface {
 	// Calculate the usage rate of facility during interval
 	public double calcUsageRate(String facilityId, Date startDate, Date endDate) {
 		
+		System.out.println("calcUsageRate by SECONDS");
+		
 		double usageRate = 0;
 		
 		long difference = endDate.getTime() - startDate.getTime();
@@ -50,7 +49,7 @@ public class FacilityUseHandler implements FacilityUseInterface {
 			long usageTime = 0;
 			
 			try {
-				List<FacilityUseRecord> recordList = ficilityUsePersistency.listRecordsByFacilityId(facilityId);
+				List<FacilityUseRecord> recordList = facilityUsePersistency.listRecordsByFacilityId(facilityId);
 				
 				if (recordList != null) {
 					
@@ -75,7 +74,7 @@ public class FacilityUseHandler implements FacilityUseInterface {
 		boolean isInUse = false;
 		
 		try {
-			List<FacilityUseRecord> recordList = ficilityUsePersistency.listRecordsByFacilityId(facilityId);
+			List<FacilityUseRecord> recordList = facilityUsePersistency.listRecordsByFacilityId(facilityId);
 			
 			if (recordList != null) {
 				
@@ -103,7 +102,7 @@ public class FacilityUseHandler implements FacilityUseInterface {
 			record.setFacilityId(facilityId);
 			record.setEmployeeId(employeeId);
 			record.setAssignDate(new Date());
-			ficilityUsePersistency.addRecord(record);
+			facilityUsePersistency.addRecord(record);
 			result = true;
 	    } catch (Exception se) {
 	    	System.err.println(se.getMessage());
@@ -120,7 +119,7 @@ public class FacilityUseHandler implements FacilityUseInterface {
 		try {
 			FacilityUseRecord latestRecord = null;
 			
-			List<FacilityUseRecord> recordList = ficilityUsePersistency.listRecordsByFacilityId(facilityId);
+			List<FacilityUseRecord> recordList = facilityUsePersistency.listRecordsByFacilityId(facilityId);
 			
 			for (FacilityUseRecord record : recordList) {
 				if (latestRecord == null) {
@@ -134,7 +133,7 @@ public class FacilityUseHandler implements FacilityUseInterface {
 			
 			if (latestRecord != null) {
 				latestRecord.setVacateDate(new Date());
-				result = ficilityUsePersistency.changeRecord(latestRecord);				
+				result = facilityUsePersistency.changeRecord(latestRecord);				
 			}
 	    } catch (Exception se) {
 	      System.err.println(se.getMessage());
