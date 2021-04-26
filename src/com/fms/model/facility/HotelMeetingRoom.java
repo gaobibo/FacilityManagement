@@ -2,10 +2,6 @@ package com.fms.model.facility;
 
 import java.util.Date;
 
-import com.fms.dal.FacilityTableRAM;
-import com.fms.model.handler.FacilityInspectHandler;
-import com.fms.model.handler.FacilityMaintainHandler;
-
 public class HotelMeetingRoom extends Facility {
 
 	public void acceptVisitor(ResourceVisitor visitor) {

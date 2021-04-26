@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import com.fms.dal.FacilityUseTableRAM;
 import com.fms.model.facility.FacilityUseRecord;
 
 public class FacilityHourlyUseHandler extends FacilityUseHandler {

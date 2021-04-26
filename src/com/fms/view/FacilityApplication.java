@@ -13,19 +13,12 @@ import com.fms.model.service.FacilityService;
 import com.fms.model.facility.Employee;
 import com.fms.model.facility.Facility;
 import com.fms.model.facility.FacilityDetail;
-import com.fms.model.facility.FacilityInspectInterface;
 import com.fms.model.facility.FacilityUseRecord;
-import com.fms.model.facility.HotelBedRoom;
-import com.fms.model.facility.HotelMeetingRoom;
 import com.fms.model.facility.Resource;
 import com.fms.model.facility.ResourceVisitor;
 import com.fms.model.handler.ResourceTreeView;
 import com.fms.model.facility.FacilityInspectRecord;
-import com.fms.model.facility.FacilityMaintainInterface;
 import com.fms.model.facility.FacilityMaintainRecord;
-import com.fms.model.facility.FacilityPersistencyInterface;
-import com.fms.model.facility.FacilityRecord;
-import com.fms.model.facility.FacilityUseInterface;
 
 public class FacilityApplication {
 	

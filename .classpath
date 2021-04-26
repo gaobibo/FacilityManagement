@@ -6,11 +6,11 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/BiboGao/Loyola/COMP473/spring/commons-logging-1.2-bin/commons-logging-1.2/commons-logging-1.2.jar"/>
-	<classpathentry kind="lib" path="C:/BiboGao/Loyola/COMP473/spring/spring-5.3.4-dist/spring-framework-5.3.4/libs/spring-aop-5.3.4.jar"/>
-	<classpathentry kind="lib" path="C:/BiboGao/Loyola/COMP473/spring/spring-5.3.4-dist/spring-framework-5.3.4/libs/spring-beans-5.3.4.jar"/>
-	<classpathentry kind="lib" path="C:/BiboGao/Loyola/COMP473/spring/spring-5.3.4-dist/spring-framework-5.3.4/libs/spring-context-5.3.4.jar"/>
-	<classpathentry kind="lib" path="C:/BiboGao/Loyola/COMP473/spring/spring-5.3.4-dist/spring-framework-5.3.4/libs/spring-core-5.3.4.jar"/>
-	<classpathentry kind="lib" path="C:/BiboGao/Loyola/COMP473/spring/spring-5.3.4-dist/spring-framework-5.3.4/libs/spring-expression-5.3.4.jar"/>
+	<classpathentry kind="lib" path="D:/workspaces/EclipseProjects/spring-5.3.4/spring-5.3.4-dist/spring-framework-5.3.4/libs/spring-aop-5.3.4.jar"/>
+	<classpathentry kind="lib" path="D:/workspaces/EclipseProjects/spring-5.3.4/spring-5.3.4-dist/spring-framework-5.3.4/libs/spring-beans-5.3.4.jar"/>
+	<classpathentry kind="lib" path="D:/workspaces/EclipseProjects/spring-5.3.4/spring-5.3.4-dist/spring-framework-5.3.4/libs/spring-context-5.3.4.jar"/>
+	<classpathentry kind="lib" path="D:/workspaces/EclipseProjects/spring-5.3.4/spring-5.3.4-dist/spring-framework-5.3.4/libs/spring-core-5.3.4.jar"/>
+	<classpathentry kind="lib" path="D:/workspaces/EclipseProjects/spring-5.3.4/spring-5.3.4-dist/spring-framework-5.3.4/libs/spring-expression-5.3.4.jar"/>
+	<classpathentry kind="lib" path="D:/workspaces/EclipseProjects/spring-5.3.4/commons-logging-1.2/commons-logging-1.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

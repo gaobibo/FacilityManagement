@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.fms.dal.FacilityMaintainTableRAM;
 import com.fms.model.facility.FacilityMaintainInterface;
 import com.fms.model.facility.FacilityMaintainRecord;
 import com.fms.model.facility.FacilityPersistencyInterface;

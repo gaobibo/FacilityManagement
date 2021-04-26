@@ -7,13 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 import com.fms.model.facility.Facility;
-import com.fms.model.facility.FacilityInspectInterface;
-import com.fms.model.facility.FacilityMaintainInterface;
 import com.fms.model.facility.FacilityPersistencyInterface;
 import com.fms.model.facility.FacilityRecord;
-import com.fms.model.facility.FacilityUseInterface;
-import com.fms.model.facility.HotelBedRoom;
-import com.fms.model.facility.HotelMeetingRoom;
 
 public class FacilityService {
 
